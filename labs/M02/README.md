@@ -6,6 +6,12 @@
 **Alumno:** ejecuta un pipeline TF-IDF + Logistic Regression, observa métricas, probabilidades y errores.  
 **Resultado:** clasificador interpretable de tickets.
 
+Materiales:
+
+- [`P01/README.md`](P01/README.md)
+- [`P01/enterprise_ticket_classifier.ipynb`](P01/enterprise_ticket_classifier.ipynb)
+- [`P01/ticket_classifier_app.py`](P01/ticket_classifier_app.py)
+
 ## M02-P02 — Classical ML vs LLM
 
 **Superficie:** Jupyter + GUI.  
