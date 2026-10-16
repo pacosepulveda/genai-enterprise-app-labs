@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     """Application settings loaded from environment variables or .env."""
 
-    aws_region: str = "eu-west-1"
+    aws_region: str = "us-east-1"
     aws_profile: str | None = None
     bedrock_text_model_id: str | None = None
     bedrock_embedding_model_id: str | None = None
