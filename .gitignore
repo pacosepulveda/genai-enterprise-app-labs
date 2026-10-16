@@ -1,0 +1,21 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+
+# Generated course data
+data/enterprise.db
+data/vectorstore/
+outputs/
+
+# Local model artifacts
+models/checkpoints/*.pt
+models/checkpoints/*.pth
+models/checkpoints/*.ckpt
+
+# Tool caches
+.cache/
+.streamlit/secrets.toml

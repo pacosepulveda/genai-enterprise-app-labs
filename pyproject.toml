@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "enterprise-genai-course"
+version = "0.1.0"
+description = "Teaching labs for an enterprise generative AI application"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+  "boto3",
+  "pydantic>=2",
+  "pydantic-settings",
+  "python-dotenv",
+  "streamlit",
+  "pandas",
+  "numpy",
+  "matplotlib",
+  "scikit-learn",
+  "torch",
+  "torchvision",
+  "langchain",
+  "langchain-aws",
+  "langgraph",
+  "langchain-chroma",
+  "chromadb",
+  "pypdf",
+  "python-docx",
+]
+
+[project.optional-dependencies]
+dev = [
+  "jupyterlab",
+  "ipykernel",
+  "pytest",
+  "ruff",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

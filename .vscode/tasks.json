@@ -1,0 +1,34 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Course: Check environment",
+      "type": "shell",
+      "command": "python scripts/check_environment.py",
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated", "clear": true}
+    },
+    {
+      "label": "Course: Initialize sample database",
+      "type": "shell",
+      "command": "python scripts/init_database.py",
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated", "clear": true}
+    },
+    {
+      "label": "Course: Start Streamlit app",
+      "type": "shell",
+      "command": "streamlit run app/Home.py --server.address 0.0.0.0 --server.port 8501",
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated", "clear": true}
+    },
+    {
+      "label": "Course: Run tests",
+      "type": "shell",
+      "command": "pytest -q",
+      "problemMatcher": [],
+      "presentation": {"reveal": "always", "panel": "dedicated", "clear": true}
+    }
+  ]
+}
