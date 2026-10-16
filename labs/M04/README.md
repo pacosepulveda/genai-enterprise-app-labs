@@ -1,21 +1,29 @@
-# M04 — Visión generativa
+# M04 — Visión artificial y generación visual
 
-## M04-P01 — Exploring VAE Latent Space
+El módulo introduce las principales familias de generación de imágenes con la profundidad necesaria para un desarrollador de aplicaciones y vuelve rápidamente a la aplicación transversal.
 
-**Superficie:** Jupyter.  
-**Alumno:** explora reconstrucciones, `latent_dim`, distribución e interpolaciones.  
-**Resultado:** interpretación visual de un espacio latente.
-
-## M04-P02 — Training a GAN
+## M04-P01 — VAE vs GAN vs Diffusion
 
 **Superficie:** Jupyter.  
-**Alumno:** lanza una GAN pequeña sobre MNIST en CPU y continúa con el módulo mientras se guardan muestras/checkpoints.  
-**Resultado:** evolución por epochs, pérdidas y análisis de inestabilidad/mode collapse.
+**Alumno:** compara visualmente un Convolutional VAE, una DCGAN y el proceso de diffusion usando MNIST 28×28.  
+**Resultado:** entiende las diferencias entre entrenar un generador propio y consumir un foundation model sin entrar en detalle innecesario de todos los parámetros internos.
 
-Se incluirá checkpoint de referencia para que la práctica no dependa de una convergencia concreta.
+La DCGAN se entrena en CPU durante varios minutos y guarda muestras/checkpoints por epoch.
+
+## M04-P02 — Multimodal Incident Analyzer
+
+**Superficie:** Jupyter + Streamlit.  
+**Alumno:** amplía `Analyze` para aceptar texto e imagen, por ejemplo capturas de errores, dashboards o fotografías de activos.  
+**Resultado:** análisis multimodal estructurado integrado en Enterprise GenAI Assistant.
 
 ## M04-P03 — Foundation Image Generation
 
 **Superficie:** Jupyter + GUI.  
-**Alumno:** genera imágenes con un modelo real de Bedrock y modifica prompt/parámetros.  
-**Resultado:** comparación entre entrenar una GAN pequeña y consumir un foundation model moderno.
+**Alumno:** genera activos visuales empresariales con un modelo real de Bedrock y experimenta con prompt y parámetros de generación.  
+**Resultado:** comparación práctica entre entrenar un modelo propio y consumir un foundation model.
+
+## M04-P04 — Visual GenAI Integration
+
+**Superficie:** Streamlit.  
+**Alumno:** consolida las capacidades visuales en la aplicación.  
+**Resultado:** `Analyze` acepta evidencias visuales y la aplicación incorpora una capacidad `Create` para activos generados, manteniendo separados contenido sintético y evidencias reales.
