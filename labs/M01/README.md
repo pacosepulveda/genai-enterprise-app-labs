@@ -3,9 +3,14 @@
 ## M01-P01 — Exploring Bedrock LLMs
 
 **Superficie:** Jupyter.  
-**Alumno:** OBSERVA + MODIFICA prompts, temperatura, longitud y system prompt.  
-**Resultado:** llamada real a Bedrock con métricas visibles.  
+**Alumno:** OBSERVA + MODIFICA prompts, temperatura, longitud, contexto y system prompt.  
+**Resultado:** llamadas reales a Bedrock con tokens, latencia, `stopReason` y streaming visibles.  
 **Producto:** establece la capa transparente de acceso al LLM.
+
+Materiales:
+
+- [`P01/README.md`](P01/README.md)
+- [`P01/exploring_bedrock_llms.ipynb`](P01/exploring_bedrock_llms.ipynb)
 
 ## M01-P02 — Structured Incident Analyzer
 
