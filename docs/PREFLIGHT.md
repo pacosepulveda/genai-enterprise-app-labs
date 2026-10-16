@@ -8,29 +8,42 @@ Abre el repositorio con **Code > Codespaces > Create codespace on main**.
 
 La creación ejecuta `.devcontainer/post-create.sh`, que instala las dependencias Python, usa PyTorch CPU y genera la base de datos local de ejemplo.
 
-## 2. Autenticarse en Amazon Bedrock
+## 2. Configurar AWS IAM Identity Center
 
-Las prácticas utilizan una API key de Amazon Bedrock proporcionada para el curso. La clave se expone al Codespace mediante la variable de entorno:
+El curso utiliza usuarios de Microsoft Entra ID sincronizados con AWS IAM Identity Center. El acceso a AWS se realiza con credenciales temporales; no se proporcionan Access Keys ni API keys permanentes.
+
+La primera vez que uses el Codespace ejecuta:
+
+```bash
+aws configure sso --use-device-code
+```
+
+Utiliza los siguientes valores cuando los solicite:
 
 ```text
-AWS_BEARER_TOKEN_BEDROCK
+SSO session name: genai-course
+SSO start URL: https://d-9067e18660.awsapps.com/start
+SSO region: us-east-1
+SSO registration scopes: sso:account:access
+Default client region: us-east-1
+Profile name: genai-course
 ```
 
-La clave nunca debe escribirse en notebooks, archivos Python, `.env` ni commits.
+La CLI mostrará una URL y un código. Abre la URL en tu navegador e inicia sesión con el usuario del curso.
 
-La opción recomendada para el curso es guardarla como **Codespaces secret** con el nombre `AWS_BEARER_TOKEN_BEDROCK`, limitado a este repositorio. De este modo se inyecta automáticamente en los Codespaces nuevos.
-
-Para una prueba temporal también puede cargarse solo en el terminal actual:
+El Codespace conserva la configuración SSO cuando se detiene. Si la sesión temporal ha caducado, basta con volver a iniciar sesión:
 
 ```bash
-export AWS_BEARER_TOKEN_BEDROCK='CLAVE_PROPORCIONADA'
+aws sso login --profile genai-course --use-device-code
 ```
 
-Comprueba que existe sin mostrar su valor:
+Comprueba la identidad obtenida:
 
 ```bash
-test -n "$AWS_BEARER_TOKEN_BEDROCK" && echo "TOKEN_OK" || echo "TOKEN_MISSING"
+aws sts get-caller-identity --profile genai-course
 ```
+
+No guardes credenciales AWS en notebooks, archivos Python ni commits.
 
 ## 3. Modelo y región
 
@@ -38,21 +51,13 @@ El entorno del curso utiliza inicialmente:
 
 ```text
 AWS_REGION=us-east-1
+AWS_PROFILE=genai-course
 BEDROCK_TEXT_MODEL_ID=us.anthropic.claude-haiku-4-5-20251001-v1:0
 ```
 
-El identificador de texto corresponde a un inference profile de Bedrock. Las prácticas posteriores podrán utilizar modelos distintos para embeddings, visión o generación de imágenes.
+El identificador de texto corresponde a un inference profile de Amazon Bedrock. Las prácticas posteriores podrán utilizar modelos distintos para embeddings, visión o generación de imágenes.
 
-Copia `.env.example` a `.env` únicamente si necesitas sobrescribir valores locales. No guardes nunca la API key en ese archivo.
-
-Variables relevantes:
-
-```text
-AWS_REGION
-BEDROCK_TEXT_MODEL_ID
-BEDROCK_EMBEDDING_MODEL_ID
-BEDROCK_IMAGE_MODEL_ID
-```
+La configuración por defecto del proyecto ya utiliza esos valores. `.env.example` puede copiarse a `.env` únicamente cuando necesites sobrescribir ajustes locales; no contiene secretos.
 
 ## 4. Comprobación automática
 
@@ -65,8 +70,8 @@ La comprobación informa de:
 - versión de Python;
 - librerías principales;
 - base de datos local;
-- presencia de la credencial de Bedrock;
-- acceso al catálogo de modelos;
+- identidad AWS obtenida mediante IAM Identity Center;
+- acceso al catálogo de Amazon Bedrock;
 - invocación real del modelo de texto;
 - resultado final `READY` si todo está preparado.
 
@@ -76,11 +81,17 @@ También puedes ejecutar la misma comprobación desde terminal:
 python scripts/check_environment.py
 ```
 
+Si la sesión SSO ha caducado, ejecuta de nuevo:
+
+```bash
+aws sso login --profile genai-course --use-device-code
+```
+
 ## 5. Notebook de preflight
 
 Abre `labs/P00/preflight.ipynb` y selecciona el kernel **Python (GenAI Course)**. Ejecuta las celdas en orden.
 
-El notebook no muestra la clave. Solo comprueba que está disponible, consulta Bedrock e invoca el modelo de texto configurado.
+El notebook comprueba la identidad temporal de AWS, consulta Bedrock e invoca el modelo de texto configurado.
 
 ## 6. Interfaz gráfica
 
