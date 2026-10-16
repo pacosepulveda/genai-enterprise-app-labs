@@ -3,6 +3,13 @@ set -euo pipefail
 
 echo "==> Preparing Enterprise GenAI course environment"
 python -m pip install --upgrade pip
+
+# Codespaces for this course run without GPU. Install the CPU wheels explicitly
+# so the environment does not download unnecessary CUDA packages.
+python -m pip install \
+  torch==2.12.0 torchvision==0.27.0 \
+  --index-url https://download.pytorch.org/whl/cpu
+
 python -m pip install -e '.[dev]'
 
 mkdir -p data/vectorstore models/checkpoints outputs
