@@ -7,7 +7,7 @@ class Settings(BaseSettings):
 
     aws_region: str = "us-east-1"
     aws_profile: str | None = None
-    bedrock_text_model_id: str | None = None
+    bedrock_text_model_id: str | None = "us.anthropic.claude-haiku-4-5-20251001-v1:0"
     bedrock_embedding_model_id: str | None = None
     bedrock_image_model_id: str | None = None
     course_debug: bool = True
