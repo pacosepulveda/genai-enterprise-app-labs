@@ -11,9 +11,11 @@ Las prácticas están diseñadas para **leer, ejecutar, observar y modificar** c
 | M02-P02 | Classical ML vs LLM | Jupyter + GUI | Compara ambos paradigmas | Opcional/router |
 | M03-P01 | Neural Network Under the Hood | Jupyter | Observa forward/loss/backprop y parámetros | Conceptual |
 | M03-P02 | Attention & Tiny Transformer | Jupyter | Visualiza atención y modifica secuencias | Conceptual |
-| M04-P01 | Exploring VAE Latent Space | Jupyter | Explora representación e interpolación | Conceptual |
-| M04-P02 | Training a GAN | Jupyter | Entrena en CPU y observa evolución | Conceptual |
-| M04-P03 | Foundation Image Generation | Jupyter + GUI | Genera imágenes con Bedrock y compara | GenAI real |
+| M04-P01 | VAE vs GAN vs Diffusion | Jupyter, CPU | Compara un VAE, entrena una DCGAN y observa el proceso de diffusion | Conceptual |
+| M04-P01B | Diffusion in Action | Google Colab, **GPU T4+** | Observa una generación real paso a paso con Stable Diffusion | Conceptual / integración de modelo |
+| M04-P02 | Multimodal Incident Analyzer | Jupyter + Streamlit | Amplía Analyze para trabajar con texto + imagen | Analyze multimodal |
+| M04-P03 | Foundation Image Generation | Jupyter + GUI | Genera activos visuales con un foundation model y compara con entrenamiento propio | Create / GenAI visual real |
+| M04-P04 | Visual GenAI Integration | Streamlit | Consolida análisis y generación visual en la aplicación | Analyze + Create |
 | M05-P01 | Tokens & Generation | Jupyter | Observa tokenización/contexto/generación | Fundamento LLM |
 | M05-P02 | Embeddings & Semantic Search | Jupyter + Streamlit | Explora similitud, top-k y metadata | Knowledge base |
 | M05-P03 | Enterprise Document Analyzer | Streamlit + Jupyter | Analiza documentos con salida estructurada | Analyze |
