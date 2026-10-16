@@ -6,23 +6,27 @@ El objetivo del preflight es comprobar el entorno antes de comenzar las práctic
 
 Abre el repositorio con **Code > Codespaces > Create codespace on main**.
 
-La creación ejecuta `.devcontainer/post-create.sh`, que instala las dependencias Python y genera la base de datos local de ejemplo.
+La creación ejecuta `.devcontainer/post-create.sh`, que instala las dependencias Python, usa PyTorch CPU y genera la base de datos local de ejemplo.
 
 ## 2. Autenticarse en AWS
 
 El curso utilizará credenciales temporales mediante AWS IAM Identity Center. El instructor facilitará los datos de configuración del entorno (Start URL, región SSO, cuenta y rol/permission set).
 
+Como Codespaces se ejecuta en una máquina remota, utilizamos el flujo **device code**: la URL de autorización se abre en el navegador del alumno, aunque la AWS CLI se esté ejecutando en el Codespace.
+
 Configura el perfil una sola vez en el Codespace:
 
 ```bash
-aws configure sso
+aws configure sso --use-device-code
 ```
 
 Después inicia sesión:
 
 ```bash
-aws sso login --profile <perfil>
+aws sso login --profile <perfil> --use-device-code
 ```
+
+La CLI mostrará una URL y un código. Abre la URL en tu navegador, introduce el código y completa el inicio de sesión.
 
 Si utilizas un perfil distinto del predeterminado, expórtalo para el terminal actual o indícalo en `.env`:
 
