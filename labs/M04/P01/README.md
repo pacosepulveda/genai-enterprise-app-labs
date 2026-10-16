@@ -13,7 +13,7 @@ Práctica visual y CPU-only para comparar tres familias de generación de imáge
 
 ## Entorno
 
-Todo se ejecuta localmente en el Codespace y utiliza CPU.
+Todo el notebook principal se ejecuta localmente en el Codespace y utiliza CPU.
 
 La GAN puede tardar varios minutos. El notebook guarda checkpoints y muestras por epoch en:
 
@@ -37,7 +37,15 @@ Python (GenAI Course)
 
 No se entrena un diffusion model completo desde cero. Se demuestra visualmente el proceso de añadir ruido, se construyen los pares `x_t / epsilon` que usaría el entrenamiento y se explica el proceso inverso.
 
-La generación de imágenes de alta calidad mediante un foundation model real se aborda posteriormente en M04-P03.
+Como complemento existe **M04-P01B — Diffusion in Action**, donde se utiliza Stable Diffusion 1.5 para observar una generación real paso a paso.
+
+> ⚠️ **M04-P01B requiere GPU NVIDIA con CUDA y está pensada para Google Colab con T4 o superior.** No debe ejecutarse en el Codespace CPU.
+
+```text
+labs/M04/P01B/diffusion_in_action_colab.ipynb
+```
+
+La generación de imágenes empresariales mediante un foundation model de la arquitectura del curso se aborda posteriormente en M04-P03.
 
 ## Relación con Enterprise GenAI Assistant
 
