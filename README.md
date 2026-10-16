@@ -9,17 +9,6 @@ Este repositorio es a la vez:
 - el proyecto incremental del **Enterprise GenAI Assistant**;
 - un entorno que el alumno puede conservar y reutilizar al terminar el curso.
 
-## Principios de diseño
-
-1. **IA real por defecto.** Los LLM, embeddings y capacidades generativas se consumen desde Amazon Bedrock.
-2. **Aprender leyendo, ejecutando y modificando.** El código necesario se entrega preparado; solo se escribe código cuando hacerlo aporta aprendizaje.
-3. **Resultado observable.** Las prácticas combinan Jupyter, Streamlit y CLI según cuál sea la mejor forma de comprender el concepto.
-4. **La GUI también enseña.** Siempre que sea útil se visualizan retrieval, chunks, tool calls, estado, métricas y otros procesos internos.
-5. **La CLI se usa cuando aporta valor.** La configuración repetitiva se automatiza en Codespaces.
-6. **Primero el problema, después la abstracción.** Structured output, LangChain, LangGraph, evaluación y controles se introducen cuando resuelven una necesidad visible.
-7. **Ruta principal + ampliación.** La ruta principal debe ser accesible para perfiles con poca experiencia; los retos opcionales permiten profundizar.
-8. **Sin mocks innecesarios.** Los sistemas empresariales ficticios se representan con datos y servicios locales reales; Bedrock no se simula salvo contingencia explícita.
-
 ## Aplicación transversal
 
 Durante el curso se construye un **Enterprise GenAI Assistant** con tres capacidades:
