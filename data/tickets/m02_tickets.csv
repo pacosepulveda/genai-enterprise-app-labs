@@ -1,0 +1,81 @@
+ticket_id,text,category
+ACC-001,No puedo iniciar sesión en el portal corporativo después de cambiar la contraseña.,access
+ACC-002,Mi cuenta aparece bloqueada y necesito acceder al correo.,access
+ACC-003,El código MFA no llega al móvil y no puedo autenticarme.,access
+ACC-004,Recibo credenciales incorrectas al entrar en Microsoft 365.,access
+ACC-005,Necesito restablecer la contraseña de mi usuario corporativo.,access
+ACC-006,El autenticador rechaza el código aunque la hora del móvil es correcta.,access
+ACC-007,Un usuario nuevo no puede entrar en el SSO de la empresa.,access
+ACC-008,Mi cuenta de dominio se bloquea cada vez que inicio sesión.,access
+ACC-009,No puedo completar el segundo factor para acceder al CRM.,access
+ACC-010,El enlace de recuperación de contraseña ha caducado.,access
+ACC-011,Después de activar MFA ya no puedo iniciar sesión en el portal.,access
+ACC-012,El usuario no aparece autorizado para acceder a la intranet.,access
+ACC-013,Me pide cambiar la contraseña pero el cambio falla.,access
+ACC-014,El inicio de sesión único redirige continuamente a la pantalla de acceso.,access
+ACC-015,El usuario puede navegar por Internet pero no autenticarse en aplicaciones corporativas.,access
+ACC-016,Error de autenticación al iniciar la VPN; otros compañeros sí conectan.,access
+NET-001,La VPN conecta pero la latencia es muy alta desde esta mañana.,network
+NET-002,No tengo conexión a Internet desde la oficina de Barcelona.,network
+NET-003,El Wi-Fi corporativo se desconecta cada pocos minutos.,network
+NET-004,Hay pérdida de paquetes entre la sede y el centro de datos.,network
+NET-005,La VPN no establece el túnel desde ninguna conexión doméstica.,network
+NET-006,Varias oficinas reportan lentitud al acceder a servicios internos.,network
+NET-007,El portátil obtiene IP pero no llega a la puerta de enlace.,network
+NET-008,El enlace WAN de la sucursal presenta cortes intermitentes.,network
+NET-009,No puedo resolver nombres DNS internos desde la red corporativa.,network
+NET-010,El acceso remoto funciona pero con cortes y timeouts frecuentes.,network
+NET-011,Usuarios de una planta no pueden conectarse a la red inalámbrica.,network
+NET-012,El firewall permite la conexión pero no hay respuesta del servidor remoto.,network
+NET-013,La conexión Ethernet funciona a 10 Mbps en lugar de 1 Gbps.,network
+NET-014,Tras un cambio de red la sede ha perdido conectividad con el ERP.,network
+NET-015,Los usuarios pueden autenticarse en la VPN pero no acceder a recursos internos.,network
+NET-016,El portal web abre pero la VPN falla para todos los usuarios de la sede.,network
+APP-001,El CRM muestra un error 500 al guardar una oportunidad.,application
+APP-002,La aplicación de facturación se cierra al generar un PDF.,application
+APP-003,El ERP tarda varios minutos en cargar el módulo de compras.,application
+APP-004,El portal de recursos humanos no permite descargar las nóminas.,application
+APP-005,La aplicación interna muestra una pantalla en blanco después de iniciar sesión.,application
+APP-006,Los usuarios reciben error al crear pedidos en el ERP.,application
+APP-007,El servicio web responde pero el formulario de altas no guarda los cambios.,application
+APP-008,El cliente de correo se abre pero no sincroniza nuevas carpetas.,application
+APP-009,El dashboard de ventas no actualiza los datos desde ayer.,application
+APP-010,La aplicación de inventario devuelve un error al buscar productos.,application
+APP-011,El navegador accede a Internet pero la aplicación de gestión no carga.,application
+APP-012,El módulo de aprobaciones del ERP queda bloqueado al enviar una solicitud.,application
+APP-013,El CRM funciona salvo la exportación a Excel que falla.,application
+APP-014,La aplicación móvil corporativa se cierra al abrir una notificación.,application
+APP-015,El portal de proveedores devuelve timeout solo al consultar facturas.,application
+APP-016,Tras autenticarse correctamente el usuario recibe error 403 dentro de la aplicación.,application
+SEC-001,He recibido un correo que solicita introducir mi contraseña en un enlace extraño.,security
+SEC-002,El antivirus detecta malware en un archivo descargado.,security
+SEC-003,Hay múltiples intentos de inicio de sesión desde un país no habitual.,security
+SEC-004,Un usuario informa de una ventana de ransomware en su portátil.,security
+SEC-005,Se ha detectado una macro sospechosa en un documento recibido por correo.,security
+SEC-006,El EDR alerta de PowerShell ejecutando un comando codificado.,security
+SEC-007,Un empleado ha introducido sus credenciales en una página de phishing.,security
+SEC-008,El navegador redirige a dominios desconocidos y aparecen ventanas emergentes.,security
+SEC-009,Se observan conexiones salientes a una IP marcada como maliciosa.,security
+SEC-010,Una cuenta está enviando correos que el usuario no reconoce.,security
+SEC-011,El SOC detecta numerosos intentos de fuerza bruta contra una cuenta.,security
+SEC-012,Se ha conectado un USB no autorizado y el EDR genera una alerta.,security
+SEC-013,Un equipo presenta procesos desconocidos y consumo anómalo de CPU.,security
+SEC-014,El usuario recibió una solicitud de MFA que no inició.,security
+SEC-015,Se ha encontrado un archivo sospechoso en una carpeta compartida.,security
+SEC-016,Tras abrir un adjunto el antivirus bloqueó una conexión a un dominio malicioso.,security
+HAR-001,El portátil no enciende aunque está conectado al cargador.,hardware
+HAR-002,El monitor externo no muestra imagen por HDMI.,hardware
+HAR-003,El teclado del portátil ha dejado de responder.,hardware
+HAR-004,La batería se descarga en menos de una hora.,hardware
+HAR-005,La webcam no es detectada en ninguna aplicación.,hardware
+HAR-006,El dock USB-C no reconoce el segundo monitor.,hardware
+HAR-007,El ventilador del portátil hace mucho ruido y el equipo se apaga.,hardware
+HAR-008,El ratón inalámbrico no funciona aunque se ha cambiado la pila.,hardware
+HAR-009,El disco SSD muestra errores y el sistema tarda mucho en arrancar.,hardware
+HAR-010,El cargador USB-C no suministra energía al portátil.,hardware
+HAR-011,La pantalla tiene líneas verticales incluso antes de iniciar Windows.,hardware
+HAR-012,El micrófono integrado no aparece como dispositivo de audio.,hardware
+HAR-013,El portátil se reinicia al conectar el dock.,hardware
+HAR-014,Una tecla del teclado está físicamente rota.,hardware
+HAR-015,El equipo no detecta el cable de red en ningún puerto del dock.,hardware
+HAR-016,Después de iniciar sesión el portátil pierde la conexión Wi-Fi y también falla el adaptador USB.,hardware
