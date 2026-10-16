@@ -15,6 +15,12 @@ Materiales:
 ## M01-P02 — Structured Incident Analyzer
 
 **Superficie:** Jupyter + Streamlit.  
-**Alumno:** compara texto libre con structured output y modifica un schema ya preparado.  
-**Resultado:** analizador visual de una incidencia empresarial.  
-**Producto:** primera versión de `Analyze`.
+**Alumno:** compara texto libre con structured output, inspecciona JSON Schema y Pydantic y prueba casos con información ausente.  
+**Resultado:** analizador visual de una incidencia empresarial con salida validada y utilizable por código.  
+**Producto:** primera versión funcional de `Analyze`.
+
+Materiales:
+
+- [`P02/README.md`](P02/README.md)
+- [`P02/structured_incident_analyzer.ipynb`](P02/structured_incident_analyzer.ipynb)
+- [`../../app/pages/2_Analyze.py`](../../app/pages/2_Analyze.py)
