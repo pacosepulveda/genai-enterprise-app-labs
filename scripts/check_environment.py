@@ -52,19 +52,18 @@ def main() -> int:
         failures += 1
 
     region = os.getenv("AWS_REGION") or os.getenv("AWS_DEFAULT_REGION") or "us-east-1"
-    profile = os.getenv("AWS_PROFILE") or None
-    api_key_present = bool(os.getenv("AWS_BEARER_TOKEN_BEDROCK"))
+    profile = os.getenv("AWS_PROFILE") or "genai-course"
 
     try:
         import boto3
 
         session = boto3.Session(profile_name=profile, region_name=region)
-
-        if api_key_present:
-            result(True, "Bedrock API key", "AWS_BEARER_TOKEN_BEDROCK is available")
-        else:
-            identity = session.client("sts").get_caller_identity()
-            result(True, "AWS credentials", f"account {identity['Account']}")
+        identity = session.client("sts").get_caller_identity()
+        result(
+            True,
+            "AWS IAM Identity Center",
+            f"{identity['Arn']} (profile {profile})",
+        )
 
         bedrock = session.client("bedrock", region_name=region)
         model_count = len(bedrock.list_foundation_models().get("modelSummaries", []))
@@ -86,6 +85,7 @@ def main() -> int:
         failures += "BEDROCK_OK" not in text
     except Exception as exc:
         result(False, "AWS / Bedrock", str(exc))
+        print(f"  Hint: aws sso login --profile {profile} --use-device-code")
         failures += 1
 
     print("\nResult:", "READY" if failures == 0 else f"{failures} check(s) require attention")
