@@ -51,29 +51,39 @@ def main() -> int:
         result(False, "Enterprise database", "run python scripts/init_database.py")
         failures += 1
 
-    region = os.getenv("AWS_REGION") or os.getenv("AWS_DEFAULT_REGION") or "eu-west-1"
+    region = os.getenv("AWS_REGION") or os.getenv("AWS_DEFAULT_REGION") or "us-east-1"
     profile = os.getenv("AWS_PROFILE") or None
+    api_key_present = bool(os.getenv("AWS_BEARER_TOKEN_BEDROCK"))
 
     try:
         import boto3
 
         session = boto3.Session(profile_name=profile, region_name=region)
-        identity = session.client("sts").get_caller_identity()
-        result(True, "AWS credentials", f"account {identity['Account']}")
+
+        if api_key_present:
+            result(True, "Bedrock API key", "AWS_BEARER_TOKEN_BEDROCK is available")
+        else:
+            identity = session.client("sts").get_caller_identity()
+            result(True, "AWS credentials", f"account {identity['Account']}")
+
+        bedrock = session.client("bedrock", region_name=region)
+        model_count = len(bedrock.list_foundation_models().get("modelSummaries", []))
+        result(True, "Bedrock access", f"{model_count} foundation models visible in {region}")
 
         runtime = session.client("bedrock-runtime", region_name=region)
-        model_id = os.getenv("BEDROCK_TEXT_MODEL_ID", "").strip()
-        if not model_id:
-            result(True, "Bedrock client", f"created in {region}; model invocation skipped (BEDROCK_TEXT_MODEL_ID not set)")
-        else:
-            response = runtime.converse(
-                modelId=model_id,
-                messages=[{"role": "user", "content": [{"text": "Reply with exactly: BEDROCK_OK"}]}],
-                inferenceConfig={"maxTokens": 20, "temperature": 0},
-            )
-            text = response["output"]["message"]["content"][0]["text"].strip()
-            result("BEDROCK_OK" in text, "Bedrock model invocation", text)
-            failures += "BEDROCK_OK" not in text
+        model_id = os.getenv(
+            "BEDROCK_TEXT_MODEL_ID",
+            "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+        ).strip()
+
+        response = runtime.converse(
+            modelId=model_id,
+            messages=[{"role": "user", "content": [{"text": "Reply with exactly: BEDROCK_OK"}]}],
+            inferenceConfig={"maxTokens": 20, "temperature": 0},
+        )
+        text = response["output"]["message"]["content"][0]["text"].strip()
+        result("BEDROCK_OK" in text, "Bedrock model invocation", f"{text} — {model_id}")
+        failures += "BEDROCK_OK" not in text
     except Exception as exc:
         result(False, "AWS / Bedrock", str(exc))
         failures += 1
