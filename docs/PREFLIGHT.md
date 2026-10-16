@@ -12,11 +12,13 @@ La creación ejecuta `.devcontainer/post-create.sh`, que instala las dependencia
 
 El curso utiliza usuarios de Microsoft Entra ID sincronizados con AWS IAM Identity Center. El acceso a AWS se realiza con credenciales temporales; no se proporcionan Access Keys ni API keys permanentes.
 
-La primera vez que uses el Codespace ejecuta:
+La primera vez que uses el Codespace ejecuta exactamente:
 
 ```bash
-aws configure sso --use-device-code
+aws configure sso --profile genai-course --use-device-code
 ```
+
+El parámetro `--profile genai-course` fuerza un nombre de perfil común para todos los alumnos y evita que la AWS CLI genere un nombre distinto basado en el permission set y el número de cuenta.
 
 Utiliza los siguientes valores cuando los solicite:
 
@@ -26,7 +28,6 @@ SSO start URL: https://d-9067e18660.awsapps.com/start
 SSO region: us-east-1
 SSO registration scopes: sso:account:access
 Default client region: us-east-1
-Profile name: genai-course
 ```
 
 La CLI mostrará una URL y un código. Abre la URL en tu navegador e inicia sesión con el usuario del curso.
