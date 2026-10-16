@@ -8,43 +8,47 @@ Abre el repositorio con **Code > Codespaces > Create codespace on main**.
 
 La creación ejecuta `.devcontainer/post-create.sh`, que instala las dependencias Python, usa PyTorch CPU y genera la base de datos local de ejemplo.
 
-## 2. Autenticarse en AWS
+## 2. Autenticarse en Amazon Bedrock
 
-El curso utilizará credenciales temporales mediante AWS IAM Identity Center. El instructor facilitará los datos de configuración del entorno (Start URL, región SSO, cuenta y rol/permission set).
+Las prácticas utilizan una API key de Amazon Bedrock proporcionada para el curso. La clave se expone al Codespace mediante la variable de entorno:
 
-Como Codespaces se ejecuta en una máquina remota, utilizamos el flujo **device code**: la URL de autorización se abre en el navegador del alumno, aunque la AWS CLI se esté ejecutando en el Codespace.
-
-Configura el perfil una sola vez en el Codespace:
-
-```bash
-aws configure sso --use-device-code
+```text
+AWS_BEARER_TOKEN_BEDROCK
 ```
 
-Después inicia sesión:
+La clave nunca debe escribirse en notebooks, archivos Python, `.env` ni commits.
+
+La opción recomendada para el curso es guardarla como **Codespaces secret** con el nombre `AWS_BEARER_TOKEN_BEDROCK`, limitado a este repositorio. De este modo se inyecta automáticamente en los Codespaces nuevos.
+
+Para una prueba temporal también puede cargarse solo en el terminal actual:
 
 ```bash
-aws sso login --profile <perfil> --use-device-code
+export AWS_BEARER_TOKEN_BEDROCK='CLAVE_PROPORCIONADA'
 ```
 
-La CLI mostrará una URL y un código. Abre la URL en tu navegador, introduce el código y completa el inicio de sesión.
-
-Si utilizas un perfil distinto del predeterminado, expórtalo para el terminal actual o indícalo en `.env`:
+Comprueba que existe sin mostrar su valor:
 
 ```bash
-export AWS_PROFILE=<perfil>
+test -n "$AWS_BEARER_TOKEN_BEDROCK" && echo "TOKEN_OK" || echo "TOKEN_MISSING"
 ```
-
-> No copies Access Keys permanentes al repositorio ni a notebooks.
 
 ## 3. Modelo y región
 
-Copia `.env.example` a `.env` únicamente si el instructor te pide definir valores locales. Se proporcionarán los identificadores de los modelos habilitados para el curso.
+El entorno del curso utiliza inicialmente:
+
+```text
+AWS_REGION=us-east-1
+BEDROCK_TEXT_MODEL_ID=us.anthropic.claude-haiku-4-5-20251001-v1:0
+```
+
+El identificador de texto corresponde a un inference profile de Bedrock. Las prácticas posteriores podrán utilizar modelos distintos para embeddings, visión o generación de imágenes.
+
+Copia `.env.example` a `.env` únicamente si necesitas sobrescribir valores locales. No guardes nunca la API key en ese archivo.
 
 Variables relevantes:
 
 ```text
 AWS_REGION
-AWS_PROFILE
 BEDROCK_TEXT_MODEL_ID
 BEDROCK_EMBEDDING_MODEL_ID
 BEDROCK_IMAGE_MODEL_ID
@@ -61,9 +65,10 @@ La comprobación informa de:
 - versión de Python;
 - librerías principales;
 - base de datos local;
-- identidad AWS;
-- acceso a Bedrock;
-- invocación real del modelo de texto, si `BEDROCK_TEXT_MODEL_ID` está configurado.
+- presencia de la credencial de Bedrock;
+- acceso al catálogo de modelos;
+- invocación real del modelo de texto;
+- resultado final `READY` si todo está preparado.
 
 También puedes ejecutar la misma comprobación desde terminal:
 
@@ -74,6 +79,8 @@ python scripts/check_environment.py
 ## 5. Notebook de preflight
 
 Abre `labs/P00/preflight.ipynb` y selecciona el kernel **Python (GenAI Course)**. Ejecuta las celdas en orden.
+
+El notebook no muestra la clave. Solo comprueba que está disponible, consulta Bedrock e invoca el modelo de texto configurado.
 
 ## 6. Interfaz gráfica
 
