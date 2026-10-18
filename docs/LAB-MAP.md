@@ -16,7 +16,7 @@ Las prácticas están diseñadas para **leer, ejecutar, observar y modificar** c
 | M04-P02 | Multimodal Incident Analyzer | Jupyter + Streamlit | Amplía Analyze para trabajar con texto + imagen | Analyze multimodal |
 | M04-P03 | Foundation Image Generation | Jupyter + Bedrock | Genera un activo visual real, compara prompts/semillas y registra procedencia | Base de Create / GenAI visual real |
 | M04-P04 | Visual GenAI Integration | Streamlit | Consolida análisis y generación visual en la aplicación | Analyze + Create |
-| M05-P01 | Tokens & Generation | Jupyter | Observa tokenización/contexto/generación | Fundamento LLM |
+| M05-P01 | Tokens, Context & Generation Budget | Jupyter + Bedrock | Mide tokens reales, crecimiento del historial y presupuesto de contexto | Fundamento LLM / observabilidad |
 | M05-P02 | Embeddings & Semantic Search | Jupyter + Streamlit | Explora similitud, top-k y metadata | Knowledge base |
 | M05-P03 | Enterprise Document Analyzer | Streamlit + Jupyter | Analiza documentos con salida estructurada | Analyze |
 | M06-P01 | RAG From Scratch | Jupyter + Streamlit | Inspecciona chunks, contexto y respuesta | Knowledge |
