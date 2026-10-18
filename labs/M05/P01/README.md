@@ -4,7 +4,7 @@ Práctica para convertir el concepto de token en una variable observable de dise
 
 ## Objetivos
 
-- usar `CountTokens` con el modelo real del curso;
+- contar tokens con el modelo real del curso antes de inferencia;
 - comprobar que palabras, caracteres y tokens no son equivalentes;
 - observar el coste de formato, `system prompt` e historial;
 - comparar el recuento previo con `usage.inputTokens` de una inferencia real;
@@ -36,5 +36,7 @@ La pregunta es:
 qué lo hace crecer
 y cómo puedo medirlo antes de inferencia?
 ```
+
+Claude Haiku 4.5 se utiliza mediante un perfil de inferencia geográfico en `bedrock-runtime`. Para este modelo, el recuento previo de tokens se realiza mediante la API oficial de Anthropic expuesta por `bedrock-mantle`; el notebook encapsula ese detalle para centrar la práctica en el presupuesto de contexto.
 
 La práctica usa la ventana de contexto del modelo configurado actualmente en el curso. Si el modelo cambia, el instructor actualizará la configuración del entorno antes de impartirla.
