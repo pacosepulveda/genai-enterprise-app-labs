@@ -174,6 +174,10 @@ def analyze_incident_multimodal(
                     "imagen. Si algo no se puede leer o inferir con seguridad, indícalo en "
                     "visual_uncertainties. Evalúa si texto e imagen son consistentes entre sí. "
                     "Una evidencia visual de degradación no equivale por sí sola a una causa raíz. "
+                    "Redacta las hipótesis siempre en lenguaje condicional o probabilístico "
+                    "(por ejemplo: podría, sugiere, es posible) y nunca como causalidad confirmada. "
+                    "No afirmes que un cambio comenzó exactamente en una hora concreta salvo que "
+                    "la evidencia lo muestre de forma inequívoca. "
                     "Marca revisión humana cuando exista incertidumbre o contradicción relevante."
                 )
             }
