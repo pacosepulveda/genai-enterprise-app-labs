@@ -119,3 +119,14 @@ M04-P03 cambia la pregunta:
 ```
 
 El helper `src/enterprise_genai/image_generation.py` creado para esta práctica se reutilizará en M04-P04 para implementar la superficie `Create` de la aplicación.
+
+## Qué tiene que hacer el alumno
+
+1. Continúa en `curso-m04` y renueva AWS SSO si fuese necesario.
+2. Abre `foundation_image_generation.ipynb` con **Python (GenAI Course)**.
+3. Ejecuta las celdas en orden y verifica que el modelo y la región corresponden a `Stable Image Core v1.1` en `us-west-2`.
+4. Compara prompt simple y prompt más específico manteniendo la misma semilla; después cambia la semilla y observa el efecto.
+5. Prueba `negative_prompt` y, si el notebook lo propone, otra relación de aspecto.
+6. Comprueba que en `outputs/m04_p03/` se guarda tanto la imagen como su JSON de procedencia y que `synthetic=true`.
+7. Si aparece `AccessDeniedException`, no cambies permisos por tu cuenta: revisa primero región y modelo y avisa al instructor.
+8. Mantén clara la frontera: una imagen generada sirve como activo sintético, nunca como evidencia real de una incidencia.

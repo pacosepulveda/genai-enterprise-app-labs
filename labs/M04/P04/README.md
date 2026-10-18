@@ -154,3 +154,13 @@ M04-P04 queda validada si:
 4. `Create` etiqueta el resultado como sintético;
 5. se muestran modelo, región, seed, latencia y procedencia;
 6. no existe ningún flujo que convierta automáticamente una imagen generada en evidencia de `Analyze`.
+
+## Qué tiene que hacer el alumno
+
+1. Continúa en `curso-m04` y asegúrate de que AWS SSO está activo.
+2. Ejecuta `streamlit run app/Home.py` desde la raíz del repositorio.
+3. En **Home**, identifica las cuatro superficies y explica cuáles son ya funcionales en este punto del curso.
+4. En **Analyze**, realiza una única comprobación multimodal y verifica evidencia visual, incertidumbres, consistencia y JSON validado.
+5. En **Create**, genera un activo real y abre los detalles de procedencia, request y response metadata.
+6. Comprueba que el activo aparece como `synthetic=true` y que puede descargarse junto con sus metadatos.
+7. Considera M04 cerrado cuando puedes explicar la diferencia entre `Analyze` como ruta de evidencia y `Create` como ruta de contenido sintético.

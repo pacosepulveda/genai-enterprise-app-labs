@@ -104,3 +104,13 @@ LangChain reduce código de integración, pero no decide por nosotros:
 ## Evolución de Knowledge
 
 Después del notebook se añadirá un modo LangChain a `Knowledge` para ejecutar el mismo flujo desde la aplicación y mostrar métricas de evaluación junto al retrieval.
+
+## Qué tiene que hacer el alumno
+
+1. Continúa en `curso-m06` y comprueba que AWS SSO está activo.
+2. Abre `langchain_rag_evaluation.ipynb` con **Python (GenAI Course)** y ejecuta las secciones en orden.
+3. Compara el número de chunks generado por las dos estrategias y observa los límites reales de alguno de ellos.
+4. Ejecuta el benchmark para varios `k` y revisa `Hit Rate@k` y `MRR@k`; no concluyas que una estrategia es mejor solo porque este benchmark sencillo dé 1.0 en todos los casos.
+5. Comprueba el efecto del filtro por metadata y examina el ranking de una consulta individual.
+6. En la generación final, compara el contexto con la respuesta y detecta si un documento correcto ha llegado incompleto por el chunking.
+7. Debes terminar distinguiendo tres niveles: documento recuperado, información realmente presente en el contexto y calidad/grounding de la respuesta.

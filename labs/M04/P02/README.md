@@ -102,3 +102,13 @@ Imagen:
 ```
 
 Comprueba si el análisis marca la inconsistencia y recomienda revisión humana.
+
+## Qué tiene que hacer el alumno
+
+1. Continúa en `curso-m04` y comprueba que AWS SSO está activo.
+2. Abre `multimodal_incident_analyzer.ipynb` con **Python (GenAI Course)** y ejecuta las celdas en orden.
+3. Compara el análisis basado solo en texto con el análisis `texto + imagen` y señala qué evidencia aporta realmente la captura.
+4. Distingue en la salida hechos textuales, evidencia visual, hipótesis e incertidumbres.
+5. Ejecuta el caso contradictorio o el reto opcional y comprueba si la aplicación detecta inconsistencia y solicita revisión humana.
+6. Arranca `streamlit run app/Home.py`, abre **Analyze**, adjunta la imagen y repite una prueba desde la GUI.
+7. No conviertas una observación visual en causa raíz si la evidencia no la demuestra.

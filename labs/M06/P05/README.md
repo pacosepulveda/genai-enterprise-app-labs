@@ -233,3 +233,15 @@ personas
 ```
 
 M06-P05 no añade otra demo independiente. Su objetivo es demostrar que todas las piezas anteriores pueden formar un único sistema coherente y revisable.
+
+## Qué tiene que hacer el alumno
+
+1. Continúa en `curso-m06`; P05 se realiza desde la aplicación Streamlit, no desde un notebook adicional.
+2. Arranca `streamlit run app/Home.py` y abre **🧭 Command Center**.
+3. En **🚀 Caso 360º**, ejecuta el caso por defecto y compara qué aporta cada perspectiva: `Analyze`, `Knowledge` e `Investigate`.
+4. Revisa el borrador del workflow antes de aprobarlo. Si contiene una afirmación no respaldada, edítala y añade un comentario antes de reanudar.
+5. Abre **🔎 Trazabilidad 360º** y relaciona `case_id`, `thread_id`, timeline y tokens con el flujo que acabas de ejecutar.
+6. En **🛡️ Assurance**, ejecuta los seis checks deterministas y comprueba que todos pasan; entiende qué controla cada uno.
+7. Lanza la prueba de prompt injection y revisa manualmente los tres criterios de grounding. Un caso correcto no demuestra inmunidad general frente a prompt injection.
+8. Termina en **🧭 Arquitectura final** y explica qué aporta `Knowledge`, `Analyze`, `Create` e `Investigate`, además de las fronteras del prototipo.
+9. Considera el curso cerrado cuando puedes explicar por qué el sistema combina IA flexible, software determinista y supervisión humana en lugar de reducirse a un chatbot.

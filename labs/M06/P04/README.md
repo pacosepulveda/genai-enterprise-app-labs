@@ -84,3 +84,14 @@ Para el caso por defecto, el workflow debería encontrar:
 - una pausa real de LangGraph esperando aprobación humana.
 
 Después de aprobar o rechazar, el mismo thread del workflow continúa desde el checkpoint y finaliza.
+
+## Qué tiene que hacer el alumno
+
+1. Continúa en `curso-m06` y asegúrate de que AWS SSO está activo.
+2. Abre `langgraph_enterprise_workflow.ipynb` con **Python (GenAI Course)**.
+3. Ejecuta el workflow hasta la interrupción y comprueba que aparece `Interrumpido: True`, `brief_ready` y una timeline que termina en `build_incident_brief`.
+4. Antes de aprobar, revisa los datos empresariales, las fuentes RAG, el briefing, las acciones y las incertidumbres. Busca afirmaciones plausibles que no estén respaldadas.
+5. Edita el borrador si es necesario y reanuda **el mismo `thread_id`** con la decisión humana; no vuelvas a lanzar la investigación desde cero.
+6. Comprueba que el estado final incluye `human_review_approved` o `human_review_rejected` y `finalize`.
+7. Arranca Streamlit, abre **Investigate → Workflow LangGraph (M06-P04)** y repite el recorrido visual: datos → RAG → briefing → pausa → revisión → reanudación.
+8. Debes poder explicar qué son estado, nodo, edge, routing, checkpoint, `interrupt()` y `Command(resume=...)`, y por qué la regla de aprobación la controla la aplicación.

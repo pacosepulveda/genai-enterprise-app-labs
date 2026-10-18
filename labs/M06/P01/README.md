@@ -72,3 +72,20 @@ La página `Knowledge` mantiene el modo de búsqueda semántica de M05 y añade 
 - respuesta generada;
 - fuentes citadas;
 - tokens y latencia.
+
+## Qué tiene que hacer el alumno
+
+1. Al comenzar M06, crea o activa la rama del módulo:
+
+```bash
+git fetch --tags
+git switch -c curso-m06 m06-complete
+```
+
+Si ya existe: `git switch curso-m06`.
+2. Renueva AWS SSO si la sesión ha caducado.
+3. Abre `rag_from_scratch.ipynb` con **Python (GenAI Course)** y ejecuta las celdas en orden.
+4. Sigue cada etapa del pipeline y comprueba qué documentos/chunks se recuperan antes de mirar la respuesta final.
+5. Inspecciona el contexto exacto y las citas `[S1]...` y verifica que el modelo no añade procedimientos que no estén en las fuentes.
+6. Arranca `streamlit run app/Home.py`, abre **Knowledge → RAG from scratch** y repite la consulta desde la GUI.
+7. Considera la práctica completada cuando puedes explicar qué parte corresponde a chunking, retrieval, contexto y generación.
