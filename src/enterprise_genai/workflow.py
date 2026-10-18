@@ -217,9 +217,13 @@ Devuelve exclusivamente JSON válido con esta estructura:
 Reglas:
 - Usa solo los datos estructurados y la guía recuperada.
 - Cita las fuentes documentales como [S1], [S2], etc. en recommended_actions cuando proceda.
-- No afirmes que se ha incumplido un SLA: solo conocemos el objetivo contractual, no el tiempo real de respuesta.
-- No inventes causa raíz, resolución ni acciones ya ejecutadas.
-- El customer_update_draft es solo un borrador sujeto a aprobación.
+- `opened_at` indica cuándo se abrió el incidente; no lo conviertas en hora confirmada de inicio del fallo salvo que otra evidencia lo diga explícitamente.
+- `response_minutes_p1` es un objetivo contractual de respuesta P1; no implica frecuencia de actualizaciones, tiempo de resolución ni incumplimiento del SLA.
+- Las acciones descritas por un runbook son recomendaciones. No afirmes que ya se están ejecutando salvo que los datos estructurados lo confirmen.
+- No inventes ventanas temporales, frecuencias, plazos, causas, resolución ni detalles operativos que no aparezcan explícitamente en los datos o fuentes.
+- Si una acción contiene un término genérico como `cambios recientes`, consérvalo como tal; no lo conviertas en `últimas 24 horas`, `última semana` u otra ventana inventada.
+- Separa claramente hechos observados, acciones recomendadas e incertidumbres.
+- El customer_update_draft es solo un borrador sujeto a aprobación y debe ser especialmente conservador con hechos no confirmados.
 """.strip()
 
     response = bedrock_runtime().converse(
@@ -229,6 +233,7 @@ Reglas:
                 "text": (
                     "Eres un asistente de gestión de incidentes empresariales. "
                     "Construye un briefing basado exclusivamente en evidencia proporcionada. "
+                    "Distingue hechos, recomendaciones e incertidumbres sin convertir unos en otros. "
                     "Devuelve JSON válido y nada más."
                 )
             }
