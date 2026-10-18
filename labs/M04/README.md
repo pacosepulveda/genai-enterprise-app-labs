@@ -27,9 +27,10 @@ Esta demostración es complementaria: Colab no sustituye a Codespaces como entor
 
 ## M04-P03 — Foundation Image Generation
 
-**Superficie:** Jupyter + GUI.  
-**Alumno:** genera activos visuales empresariales con un modelo real de Bedrock y experimenta con prompt y parámetros de generación.  
-**Resultado:** comparación práctica entre entrenar un modelo propio y consumir un foundation model.
+**Superficie:** Jupyter en Codespaces + Amazon Bedrock.  
+**Alumno:** invoca un modelo real de generación de imágenes, inspecciona el payload nativo y la respuesta Base64, compara prompts y semillas, prueba `negative_prompt` y guarda metadatos de procedencia junto al activo generado.  
+**Modelo por defecto:** `stability.stable-image-core-v1:1` en `us-west-2`.  
+**Resultado:** comparación práctica entre entrenar un generador propio y consumir un foundation model, dejando preparado un helper reutilizable para `Create`.
 
 ## M04-P04 — Visual GenAI Integration
 
