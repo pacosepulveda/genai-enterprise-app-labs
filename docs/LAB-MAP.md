@@ -14,7 +14,7 @@ Las prácticas están diseñadas para **leer, ejecutar, observar y modificar** c
 | M04-P01 | VAE vs GAN vs Diffusion | Jupyter, CPU | Compara un VAE, entrena una DCGAN y observa el proceso de diffusion | Conceptual |
 | M04-P01B | Diffusion in Action | Google Colab, **GPU T4+** | Observa una generación real paso a paso con Stable Diffusion | Conceptual / integración de modelo |
 | M04-P02 | Multimodal Incident Analyzer | Jupyter + Streamlit | Amplía Analyze para trabajar con texto + imagen | Analyze multimodal |
-| M04-P03 | Foundation Image Generation | Jupyter + GUI | Genera activos visuales con un foundation model y compara con entrenamiento propio | Create / GenAI visual real |
+| M04-P03 | Foundation Image Generation | Jupyter + Bedrock | Genera un activo visual real, compara prompts/semillas y registra procedencia | Base de Create / GenAI visual real |
 | M04-P04 | Visual GenAI Integration | Streamlit | Consolida análisis y generación visual en la aplicación | Analyze + Create |
 | M05-P01 | Tokens & Generation | Jupyter | Observa tokenización/contexto/generación | Fundamento LLM |
 | M05-P02 | Embeddings & Semantic Search | Jupyter + Streamlit | Explora similitud, top-k y metadata | Knowledge base |
