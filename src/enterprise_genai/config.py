@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     aws_region: str = "us-east-1"
     aws_profile: str | None = "genai-course"
     bedrock_text_model_id: str | None = "us.anthropic.claude-haiku-4-5-20251001-v1:0"
-    bedrock_embedding_model_id: str | None = None
+    bedrock_embedding_model_id: str | None = "amazon.titan-embed-text-v2:0"
     bedrock_image_model_id: str | None = "stability.stable-image-core-v1:1"
     bedrock_image_region: str = "us-west-2"
     course_debug: bool = True
