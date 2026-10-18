@@ -214,16 +214,26 @@ Devuelve exclusivamente JSON válido con esta estructura:
   "uncertainties": ["dato que no conocemos"]
 }}
 
-Reglas:
+REGLAS OBLIGATORIAS DE GROUNDING:
 - Usa solo los datos estructurados y la guía recuperada.
 - Cita las fuentes documentales como [S1], [S2], etc. en recommended_actions cuando proceda.
-- `opened_at` indica cuándo se abrió el incidente; no lo conviertas en hora confirmada de inicio del fallo salvo que otra evidencia lo diga explícitamente.
-- `response_minutes_p1` es un objetivo contractual de respuesta P1; no implica frecuencia de actualizaciones, tiempo de resolución ni incumplimiento del SLA.
-- Las acciones descritas por un runbook son recomendaciones. No afirmes que ya se están ejecutando salvo que los datos estructurados lo confirmen.
+- `opened_at` significa exclusivamente HORA DE APERTURA DEL INCIDENTE. Nunca lo describas como `hora de inicio del fallo`, `desde esa hora`, `inicio del incidente real` ni equivalente.
+- `service_status.updated_at` significa exclusivamente HORA DE ACTUALIZACIÓN DEL ESTADO. Nunca lo conviertas en `el servicio está degradado desde esa hora` salvo que una fuente lo afirme explícitamente.
+- `response_minutes_p1` significa exclusivamente OBJETIVO CONTRACTUAL DE RESPUESTA P1. Nunca lo conviertas en frecuencia de actualizaciones, ETA de resolución o incumplimiento de SLA.
+- Las acciones de los runbooks son RECOMENDACIONES FUTURAS. Nunca las describas como acciones que el equipo ya está ejecutando.
+- En recommended_actions, si necesitas usar `opened_at`, llámalo `hora de apertura del incidente`; no lo uses como `hora de inicio del fallo`.
 - No inventes ventanas temporales, frecuencias, plazos, causas, resolución ni detalles operativos que no aparezcan explícitamente en los datos o fuentes.
-- Si una acción contiene un término genérico como `cambios recientes`, consérvalo como tal; no lo conviertas en `últimas 24 horas`, `última semana` u otra ventana inventada.
+- Si una fuente dice `cambios recientes`, conserva exactamente ese nivel de precisión. No lo conviertas en `últimas 24 horas`, `última semana` ni otra ventana.
 - Separa claramente hechos observados, acciones recomendadas e incertidumbres.
-- El customer_update_draft es solo un borrador sujeto a aprobación y debe ser especialmente conservador con hechos no confirmados.
+
+REGLAS ESPECÍFICAS DEL BORRADOR AL CLIENTE:
+- El customer_update_draft puede usar hechos de `open_incidents`, `service_status` y `contract_sla`, más incertidumbres explícitas.
+- No presentes recomendaciones RAG como trabajo ya realizado.
+- No digas `nuestro equipo está investigando`, `estamos correlacionando`, `hemos comprobado` ni expresiones equivalentes salvo que un dato estructurado confirme esa acción.
+- Para el timestamp `opened_at`, usa una formulación como `El incidente fue abierto a ...`.
+- Para `service_status.updated_at`, usa una formulación como `El estado del servicio fue actualizado a ...` si necesitas mencionar el timestamp.
+- Si no hay evidencia de inicio exacto del fallo, di que la hora exacta de inicio no está confirmada o simplemente no la menciones.
+- El customer_update_draft es solo un borrador sujeto a aprobación humana y debe ser especialmente conservador.
 """.strip()
 
     response = bedrock_runtime().converse(
@@ -234,6 +244,7 @@ Reglas:
                     "Eres un asistente de gestión de incidentes empresariales. "
                     "Construye un briefing basado exclusivamente en evidencia proporcionada. "
                     "Distingue hechos, recomendaciones e incertidumbres sin convertir unos en otros. "
+                    "Respeta literalmente la semántica de los timestamps y del SLA descrita por el usuario. "
                     "Devuelve JSON válido y nada más."
                 )
             }
