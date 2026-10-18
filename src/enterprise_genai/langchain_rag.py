@@ -18,6 +18,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from enterprise_genai.config import get_settings
 from enterprise_genai.embeddings import DEFAULT_DIMENSIONS, embed_documents, embed_text
+from enterprise_genai.models.bedrock import bedrock_runtime
 
 
 class CourseBedrockEmbeddings(Embeddings):
@@ -260,10 +261,16 @@ RAG_PROMPT = ChatPromptTemplate.from_messages(
 
 
 def build_generation_chain():
-    """Build the LCEL prompt → Bedrock → string parser chain."""
+    """Build the LCEL prompt → Bedrock → string parser chain.
+
+    We pass the same boto3 Bedrock Runtime client used by the rest of the course.
+    That client is created from the configured ``genai-course`` AWS profile, so
+    LangChain uses the IAM Identity Center credentials already validated in P00.
+    """
     settings = get_settings()
     llm = ChatBedrockConverse(
         model_id=settings.bedrock_text_model_id,
+        client=bedrock_runtime(),
         region_name=settings.aws_region,
         temperature=0.0,
         max_tokens=700,
