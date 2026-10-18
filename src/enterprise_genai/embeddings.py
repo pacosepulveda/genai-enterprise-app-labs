@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import time
+from concurrent.futures import ThreadPoolExecutor
 from typing import Iterable
 
 import numpy as np
@@ -74,27 +75,44 @@ def embed_documents(
     dimensions: int = DEFAULT_DIMENSIONS,
     normalize: bool = True,
     model_id: str | None = None,
+    max_workers: int = 8,
 ) -> dict:
-    """Embed a small corpus sequentially so every model call remains observable."""
-    docs = list(documents)
-    vectors: list[np.ndarray] = []
-    token_counts: list[int | None] = []
-    latencies: list[int] = []
+    """Embed a corpus while preserving one observable result per document.
 
-    for doc in docs:
-        result = embed_text(
+    For the 80-document teaching corpus we execute a small number of independent
+    Bedrock calls concurrently. This keeps the mechanics transparent but avoids
+    making ingestion unnecessarily slow.
+    """
+    docs = list(documents)
+
+    def embed_one(doc: dict) -> dict:
+        return embed_text(
             str(doc[text_field]),
             dimensions=dimensions,
             normalize=normalize,
             model_id=model_id,
         )
-        vectors.append(result["embedding"])
-        token_counts.append(result["input_tokens"])
-        latencies.append(result["latency_ms"])
 
-    matrix = np.vstack(vectors) if vectors else np.empty((0, dimensions), dtype=np.float32)
+    if not docs:
+        return {
+            "matrix": np.empty((0, dimensions), dtype=np.float32),
+            "token_counts": [],
+            "latencies_ms": [],
+            "request_count": 0,
+            "dimensions": dimensions,
+            "normalized": normalize,
+        }
+
+    workers = max(1, min(max_workers, len(docs)))
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        results = list(executor.map(embed_one, docs))
+
+    vectors = [result["embedding"] for result in results]
+    token_counts = [result["input_tokens"] for result in results]
+    latencies = [result["latency_ms"] for result in results]
+
     return {
-        "matrix": matrix,
+        "matrix": np.vstack(vectors),
         "token_counts": token_counts,
         "latencies_ms": latencies,
         "request_count": len(docs),
