@@ -22,6 +22,7 @@ dependencies = [
   "torchvision",
   "langchain",
   "langchain-aws",
+  "langchain-text-splitters",
   "langgraph",
   "langchain-chroma",
   "chromadb",
