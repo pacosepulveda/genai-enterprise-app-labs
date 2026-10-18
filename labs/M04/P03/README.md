@@ -21,22 +21,41 @@ BEDROCK_IMAGE_MODEL_ID=stability.stable-image-core-v1:1
 BEDROCK_IMAGE_REGION=us-west-2
 ```
 
-`Stable Image Core 1.0` se invoca mediante Bedrock Runtime `InvokeModel`. La región de imagen es independiente de `AWS_REGION`, que sigue utilizándose para las prácticas de texto.
+`Stable Image Core v1.1` se invoca mediante Bedrock Runtime `InvokeModel`. La región de imagen es independiente de `AWS_REGION`, que sigue utilizándose para las prácticas de texto.
 
 Los valores están centralizados en `src/enterprise_genai/config.py` y pueden sobrescribirse mediante `.env`.
 
 ## Requisitos de acceso
 
-La identidad utilizada por el alumno necesita permiso para `bedrock:InvokeModel` sobre el modelo configurado.
+La identidad utilizada por el alumno necesita permiso para `bedrock:InvokeModel` sobre el modelo configurado en `us-west-2`.
 
-Como Stable Image Core es un modelo de terceros, la cuenta debe tener habilitado el acceso al modelo. En la primera utilización, Bedrock puede iniciar automáticamente la suscripción correspondiente. Si el rol de laboratorio no dispone de permisos de AWS Marketplace para realizar esa activación inicial, el instructor debe habilitar el modelo una vez en la cuenta antes del curso. Una vez habilitado, los alumnos solo necesitan los permisos de inferencia previstos por el entorno.
+Como Stable Image Core es un modelo de terceros distribuido mediante AWS Marketplace, la cuenta debe tener habilitado el acceso al modelo. La activación inicial debe realizarse **una sola vez por cuenta** con una identidad que tenga permisos suficientes de Bedrock y AWS Marketplace. No es necesario conceder permisos de suscripción de Marketplace a los alumnos.
 
-Si aparece `AccessDeniedException`, comprobar primero:
+### Pre-activación recomendada por el instructor
 
-1. que el modelo está habilitado para la cuenta;
-2. que la invocación se realiza en `us-west-2`;
-3. que el rol permite `bedrock:InvokeModel`;
-4. que no existe una SCP o política que bloquee el modelo.
+Antes del curso, el instructor debe comprobar el modelo con una identidad administrativa o de preparación de laboratorio:
+
+```bash
+aws bedrock-runtime invoke-model \
+  --region us-west-2 \
+  --model-id stability.stable-image-core-v1:1 \
+  --content-type application/json \
+  --accept application/json \
+  --body '{"prompt":"A blue circle on a white background","seed":42,"output_format":"png"}' \
+  --cli-binary-format raw-in-base64-out \
+  /tmp/stable-core-response.json
+```
+
+Una respuesta correcta contendrá un array `images` con una imagen codificada en Base64. Después de esta activación, el rol de laboratorio solo necesita los permisos de inferencia previstos por el curso.
+
+La primera invocación puede ser sensiblemente más lenta si coincide con la activación inicial del modelo. Las invocaciones posteriores suelen ser mucho más rápidas; la latencia real debe observarse en cada ejecución en lugar de asumir un valor fijo.
+
+Si aparece `AccessDeniedException`, comprobar en este orden:
+
+1. que la invocación se realiza en `us-west-2`;
+2. que el rol permite `bedrock:InvokeModel` sobre `arn:aws:bedrock:us-west-2::foundation-model/stability.stable-image-core-v1:1`;
+3. que el modelo ya fue activado en la cuenta por una identidad con permisos suficientes de AWS Marketplace;
+4. que no existe una SCP u otra política que bloquee el modelo.
 
 ## Notebook
 
@@ -62,6 +81,8 @@ outputs/m04_p03/
 
 La práctica termina creando un activo de formación interna y un JSON de procedencia con:
 
+- indicador `synthetic`;
+- propósito del activo;
 - modelo;
 - región;
 - prompt;
