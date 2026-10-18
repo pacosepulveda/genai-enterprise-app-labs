@@ -1,0 +1,98 @@
+[
+  {
+    "id": "VPN-RUNBOOK-001",
+    "title": "Acceso remoto: problemas con MFA",
+    "source_type": "runbook",
+    "service": "VPN",
+    "audience": "operations",
+    "content": "Cuando un usuario no recibe el segundo factor de autenticación al conectarse por VPN, comprobar primero que el teléfono registrado sea correcto, que el dispositivo tenga cobertura y que el proveedor MFA no muestre incidencias. Si el problema afecta a varios usuarios, revisar el estado del servicio MFA antes de restablecer credenciales."
+  },
+  {
+    "id": "VPN-RUNBOOK-002",
+    "title": "VPN: errores de autenticación generalizados",
+    "source_type": "runbook",
+    "service": "VPN",
+    "audience": "operations",
+    "content": "Ante un aumento generalizado de fallos de autenticación VPN, correlacionar la hora de inicio con el estado del VPN AUTH BACKEND, los logs del proveedor de identidad y los cambios recientes. Un gateway operativo no descarta un problema en la capa de autenticación. No declarar causa raíz únicamente por correlación temporal."
+  },
+  {
+    "id": "IAM-POLICY-001",
+    "title": "Política de restablecimiento de contraseñas",
+    "source_type": "policy",
+    "service": "Identity",
+    "audience": "all",
+    "content": "Los restablecimientos de contraseña requieren verificar la identidad del usuario mediante un mecanismo aprobado. El personal de soporte nunca solicitará la contraseña actual. Tras un restablecimiento por sospecha de compromiso se deben revocar las sesiones activas y revisar los eventos recientes de inicio de sesión."
+  },
+  {
+    "id": "IAM-KB-002",
+    "title": "Inicio de sesión único corporativo",
+    "source_type": "knowledge_base",
+    "service": "Identity",
+    "audience": "all",
+    "content": "El acceso a aplicaciones corporativas utiliza inicio de sesión único. Si varias aplicaciones fallan simultáneamente, comprobar el estado del proveedor de identidad y los certificados de federación. Si solo falla una aplicación, revisar su configuración y la asignación de grupos antes de escalar el incidente."
+  },
+  {
+    "id": "WEB-RUNBOOK-001",
+    "title": "Disponibilidad del portal corporativo",
+    "source_type": "runbook",
+    "service": "Corporate Web",
+    "audience": "operations",
+    "content": "Para investigar una degradación del portal corporativo, revisar errores HTTP, latencia del balanceador, salud de los backends y dependencias de base de datos. Una respuesta HTTP 200 no garantiza que todas las funciones de la aplicación estén operativas."
+  },
+  {
+    "id": "NET-KB-001",
+    "title": "Diagnóstico de resolución DNS",
+    "source_type": "knowledge_base",
+    "service": "Network",
+    "audience": "operations",
+    "content": "Si un servicio funciona por dirección IP pero no por nombre, validar resolución DNS, servidores configurados, caché local y registros autoritativos. Los problemas de DNS pueden parecer fallos de aplicación aunque el servicio de destino permanezca disponible."
+  },
+  {
+    "id": "ENDPOINT-POLICY-001",
+    "title": "Actualizaciones de seguridad de endpoints",
+    "source_type": "policy",
+    "service": "Endpoint",
+    "audience": "all",
+    "content": "Los equipos corporativos deben instalar actualizaciones de seguridad dentro de la ventana definida por su criticidad. Los dispositivos que acumulen parches críticos pendientes pueden ser aislados de determinados servicios hasta recuperar el nivel de cumplimiento requerido."
+  },
+  {
+    "id": "SEC-GUIDE-001",
+    "title": "Mensajes sospechosos y phishing",
+    "source_type": "guide",
+    "service": "Security",
+    "audience": "all",
+    "content": "Si un correo solicita credenciales, códigos MFA, pagos urgentes o abrir un enlace inesperado, no responder ni introducir información. Reportar el mensaje mediante el canal corporativo de phishing y conservarlo para que el equipo de seguridad pueda analizar cabeceras, enlaces y adjuntos."
+  },
+  {
+    "id": "DB-RUNBOOK-001",
+    "title": "Recuperación de base de datos",
+    "source_type": "runbook",
+    "service": "Database",
+    "audience": "operations",
+    "content": "Antes de restaurar una base de datos, identificar el punto de recuperación requerido, comprobar la integridad del backup y validar el procedimiento en un entorno controlado cuando sea posible. Una restauración debe registrar responsable, hora, origen del backup y validaciones posteriores."
+  },
+  {
+    "id": "HR-POLICY-001",
+    "title": "Trabajo remoto y protección de información",
+    "source_type": "policy",
+    "service": "Workplace",
+    "audience": "all",
+    "content": "Durante el trabajo remoto se deben utilizar equipos corporativos, conexión VPN cuando proceda y mecanismos de bloqueo de pantalla. No se debe almacenar información corporativa en servicios personales ni compartir dispositivos de trabajo con terceros."
+  },
+  {
+    "id": "OBS-RUNBOOK-001",
+    "title": "Interpretación de alertas de monitorización",
+    "source_type": "runbook",
+    "service": "Observability",
+    "audience": "operations",
+    "content": "Una alerta indica que se ha cumplido una condición de monitorización, pero no demuestra por sí sola una causa raíz. Correlacionar métricas, logs, trazas, cambios y estado de dependencias antes de concluir qué componente originó el problema."
+  },
+  {
+    "id": "INC-PROCESS-001",
+    "title": "Escalado de incidencias críticas",
+    "source_type": "process",
+    "service": "Incident Management",
+    "audience": "operations",
+    "content": "Una incidencia debe escalarse cuando el impacto supera los umbrales definidos, existe riesgo de seguridad o el equipo responsable no puede restaurar el servicio dentro del objetivo acordado. El escalado debe incluir impacto, servicios afectados, evidencias observadas, acciones realizadas y siguiente punto de decisión."
+  }
+]
