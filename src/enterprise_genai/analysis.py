@@ -200,7 +200,7 @@ def analyze_incident_multimodal(
         ],
         "inferenceConfig": {
             "temperature": 0.0,
-            "maxTokens": 950,
+            "maxTokens": 1600,
         },
         "outputConfig": _structured_output_config(
             schema,
@@ -211,6 +211,15 @@ def analyze_incident_multimodal(
 
     response = bedrock_runtime().converse(**request)
     raw_text = response["output"]["message"]["content"][0]["text"]
+    stop_reason = response.get("stopReason")
+
+    if stop_reason == "max_tokens":
+        usage = response.get("usage", {})
+        raise RuntimeError(
+            "Bedrock alcanzó el límite de salida antes de completar el JSON "
+            f"(outputTokens={usage.get('outputTokens')}). Aumenta maxTokens o reduce la salida."
+        )
+
     parsed = MultimodalIncidentAnalysis.model_validate_json(raw_text)
 
     return {
@@ -219,6 +228,6 @@ def analyze_incident_multimodal(
         "schema": schema,
         "usage": response.get("usage", {}),
         "metrics": response.get("metrics", {}),
-        "stop_reason": response.get("stopReason"),
+        "stop_reason": stop_reason,
         "model_id": model_id,
     }
