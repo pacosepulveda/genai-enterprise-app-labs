@@ -138,7 +138,9 @@ def answer_with_context(
     context = build_context(retrieved_results)
     system_prompt = (
         "Responde preguntas sobre documentación empresarial usando exclusivamente el CONTEXTO "
-        "recuperado. No uses conocimiento externo ni inventes procedimientos, fechas o causas. "
+        "recuperado. No uses conocimiento externo ni inventes procedimientos, fechas, causas, "
+        "ejemplos o detalles plausibles que no aparezcan explícitamente en las fuentes. "
+        "No amplíes términos genéricos con ejemplos propios. "
         "Cita las fuentes con [S1], [S2], etc. junto a cada afirmación relevante. "
         "Si el contexto no permite responder con suficiente seguridad, dilo explícitamente."
     )
