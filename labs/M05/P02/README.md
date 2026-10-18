@@ -8,7 +8,7 @@ Práctica para pasar de **medir contexto** a **encontrar contexto relevante**.
 - observar dimensión, norma y consumo de entrada de un vector;
 - medir similitud coseno entre textos;
 - comprobar que similitud semántica no es lo mismo que coincidencia literal de palabras;
-- construir un pequeño índice vectorial en memoria;
+- construir un índice vectorial en memoria sobre el corpus empresarial del curso;
 - modificar `top-k` y filtros de metadata;
 - visualizar una proyección 2D de los embeddings;
 - convertir la superficie `Knowledge` de la aplicación en un explorador de recuperación semántica.
@@ -27,24 +27,24 @@ Por defecto:
 amazon.titan-embed-text-v2:0
 ```
 
-Usamos vectores normalizados de **512 dimensiones** para que el alumno pueda trabajar con una representación real sin introducir todavía una base de datos vectorial.
+Usamos vectores normalizados de **512 dimensiones**.
 
 ## Corpus
 
-El corpus didáctico se encuentra en:
+El corpus se encuentra en:
 
 ```text
 data/knowledge/m05_enterprise_chunks.json
 ```
 
-Contiene fragmentos pequeños de documentación empresarial con metadata como:
+Contiene **80 documentos empresariales cortos** de VPN, identidad, web corporativa, red, endpoints, seguridad, bases de datos, workplace, observabilidad e incident management. Cada documento conserva metadata como:
 
 - `service`;
 - `source_type`;
 - `audience`;
 - identificador y título.
 
-No es todavía un pipeline de chunking. En M06 construiremos recuperación y RAG a partir de documentos de forma más completa.
+Este mismo corpus se reutiliza en M06. En M05 tratamos cada documento corto como una unidad semántica para centrarnos en embeddings y retrieval; en M06 introduciremos chunking, vector store y RAG sobre el mismo conocimiento.
 
 ## Notebook
 
@@ -68,7 +68,7 @@ Después del notebook, iniciar:
 streamlit run app/Home.py
 ```
 
-La página `Knowledge` ya no es un placeholder. Permite:
+La página `Knowledge` permite:
 
 - escribir una consulta;
 - elegir `top-k`;
@@ -78,14 +78,14 @@ La página `Knowledge` ya no es un placeholder. Permite:
 
 ## Límite funcional
 
-En esta práctica `Knowledge` **recupera fragmentos**, pero todavía **no genera una respuesta con un LLM**.
+En esta práctica `Knowledge` **recupera documentos relevantes**, pero todavía **no genera una respuesta con un LLM**.
 
 ```text
 M05-P02
-consulta → embeddings → ranking → fragmentos
+consulta → embeddings → ranking → documentos
 
 M06
-consulta → retrieval → contexto → LLM → respuesta con fuentes
+consulta → chunking → retrieval → contexto → LLM → respuesta con fuentes
 ```
 
 Mantener esta separación permite entender qué parte del futuro RAG corresponde realmente al retrieval.
