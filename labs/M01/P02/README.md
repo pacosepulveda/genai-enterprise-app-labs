@@ -87,3 +87,13 @@ datos que una aplicación puede utilizar
 ```
 
 Esta será la primera versión real de la capacidad **Analyze** del Enterprise GenAI Assistant.
+
+## Qué tiene que hacer el alumno
+
+1. Continúa trabajando en la rama `curso-m01`; no crees otra rama para P02.
+2. Renueva AWS SSO únicamente si la sesión ha caducado.
+3. Abre `labs/M01/P02/structured_incident_analyzer.ipynb` con **Python (GenAI Course)** y ejecuta las celdas en orden.
+4. Inspecciona el modelo Pydantic, el JSON Schema y la respuesta JSON antes de mirar únicamente la presentación final.
+5. Ejecuta el caso con datos incompletos y comprueba que la ausencia de información se representa con `null` en lugar de inventarse.
+6. Arranca la aplicación con `streamlit run app/Home.py`, abre **Analyze** y prueba al menos una incidencia adicional.
+7. Considera la práctica completada cuando puedes explicar el flujo `LLM → JSON Schema → Pydantic → GUI` y distinguir hechos, hipótesis y recomendaciones.
