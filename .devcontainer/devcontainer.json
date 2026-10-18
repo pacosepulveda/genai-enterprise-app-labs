@@ -2,8 +2,8 @@
   "name": "Enterprise GenAI Course",
   "image": "mcr.microsoft.com/devcontainers/python:1-3.11-bookworm",
   "hostRequirements": {
-    "cpus": 4,
-    "memory": "16gb",
+    "cpus": 2,
+    "memory": "8gb",
     "storage": "32gb"
   },
   "features": {
