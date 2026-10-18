@@ -112,3 +112,25 @@ No busques solo si la respuesta parece buena. Fíjate también en:
 - posibles afirmaciones que no estén respaldadas por los datos de entrada.
 
 La práctica utiliza un caso ficticio de soporte empresarial y realiza llamadas reales al modelo autorizado para el curso.
+
+## Qué tiene que hacer el alumno
+
+1. Al comenzar M01, sitúate en el checkpoint del módulo:
+
+```bash
+git fetch --tags
+git switch -c curso-m01 m01-complete
+```
+
+Si la rama ya existe:
+
+```bash
+git switch curso-m01
+```
+
+2. Comprueba que AWS SSO sigue activo; si ha caducado, ejecuta `aws sso login --profile genai-course --use-device-code`.
+3. Abre `labs/M01/P01/exploring_bedrock_llms.ipynb` con **Python (GenAI Course)**.
+4. Ejecuta las celdas en orden y no cambies varias variables a la vez.
+5. En cada experimento anota qué cambia en tokens, latencia, `stopReason`, estilo y contenido.
+6. Completa el mini-reto final y señala cualquier afirmación que no esté respaldada por la incidencia.
+7. No es necesario programar desde cero: modifica únicamente los valores que propone el notebook y explica lo que observas.

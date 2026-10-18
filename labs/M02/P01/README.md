@@ -66,3 +66,19 @@ No buscamos únicamente una cifra de accuracy. Queremos responder preguntas como
 - ¿Qué ocurre con tickets ambiguos o con vocabulario poco visto?
 
 El dataset es deliberadamente pequeño. Sirve para hacer visible el proceso; no representa un sistema de clasificación listo para producción.
+
+## Qué tiene que hacer el alumno
+
+1. Al comenzar M02, crea o activa la rama del módulo:
+
+```bash
+git fetch --tags
+git switch -c curso-m02 m02-complete
+```
+
+Si ya existe: `git switch curso-m02`.
+2. Abre `enterprise_ticket_classifier.ipynb` con **Python (GenAI Course)** y ejecuta todas las celdas en orden.
+3. Inspecciona el dataset, el split train/test, la matriz de confusión, las métricas y los términos con mayor peso.
+4. Prueba al menos un ticket ambiguo y otro con vocabulario poco representado; compara las probabilidades.
+5. Arranca `ticket_classifier_app.py` con Streamlit y repite una prueba desde la GUI.
+6. No necesitas AWS en esta práctica. El objetivo es poder explicar qué ha aprendido el clasificador y dónde falla, no maximizar la accuracy.
