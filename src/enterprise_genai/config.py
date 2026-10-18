@@ -13,7 +13,12 @@ class Settings(BaseSettings):
     bedrock_image_region: str = "us-west-2"
     course_debug: bool = True
 
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        env_ignore_empty=True,
+        extra="ignore",
+    )
 
 
 @lru_cache
