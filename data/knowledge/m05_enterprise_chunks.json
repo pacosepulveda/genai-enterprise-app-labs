@@ -1,98 +1,91 @@
 [
-  {
-    "id": "VPN-RUNBOOK-001",
-    "title": "Acceso remoto: problemas con MFA",
-    "source_type": "runbook",
-    "service": "VPN",
-    "audience": "operations",
-    "content": "Cuando un usuario no recibe el segundo factor de autenticación al conectarse por VPN, comprobar primero que el teléfono registrado sea correcto, que el dispositivo tenga cobertura y que el proveedor MFA no muestre incidencias. Si el problema afecta a varios usuarios, revisar el estado del servicio MFA antes de restablecer credenciales."
-  },
-  {
-    "id": "VPN-RUNBOOK-002",
-    "title": "VPN: errores de autenticación generalizados",
-    "source_type": "runbook",
-    "service": "VPN",
-    "audience": "operations",
-    "content": "Ante un aumento generalizado de fallos de autenticación VPN, correlacionar la hora de inicio con el estado del VPN AUTH BACKEND, los logs del proveedor de identidad y los cambios recientes. Un gateway operativo no descarta un problema en la capa de autenticación. No declarar causa raíz únicamente por correlación temporal."
-  },
-  {
-    "id": "IAM-POLICY-001",
-    "title": "Política de restablecimiento de contraseñas",
-    "source_type": "policy",
-    "service": "Identity",
-    "audience": "all",
-    "content": "Los restablecimientos de contraseña requieren verificar la identidad del usuario mediante un mecanismo aprobado. El personal de soporte nunca solicitará la contraseña actual. Tras un restablecimiento por sospecha de compromiso se deben revocar las sesiones activas y revisar los eventos recientes de inicio de sesión."
-  },
-  {
-    "id": "IAM-KB-002",
-    "title": "Inicio de sesión único corporativo",
-    "source_type": "knowledge_base",
-    "service": "Identity",
-    "audience": "all",
-    "content": "El acceso a aplicaciones corporativas utiliza inicio de sesión único. Si varias aplicaciones fallan simultáneamente, comprobar el estado del proveedor de identidad y los certificados de federación. Si solo falla una aplicación, revisar su configuración y la asignación de grupos antes de escalar el incidente."
-  },
-  {
-    "id": "WEB-RUNBOOK-001",
-    "title": "Disponibilidad del portal corporativo",
-    "source_type": "runbook",
-    "service": "Corporate Web",
-    "audience": "operations",
-    "content": "Para investigar una degradación del portal corporativo, revisar errores HTTP, latencia del balanceador, salud de los backends y dependencias de base de datos. Una respuesta HTTP 200 no garantiza que todas las funciones de la aplicación estén operativas."
-  },
-  {
-    "id": "NET-KB-001",
-    "title": "Diagnóstico de resolución DNS",
-    "source_type": "knowledge_base",
-    "service": "Network",
-    "audience": "operations",
-    "content": "Si un servicio funciona por dirección IP pero no por nombre, validar resolución DNS, servidores configurados, caché local y registros autoritativos. Los problemas de DNS pueden parecer fallos de aplicación aunque el servicio de destino permanezca disponible."
-  },
-  {
-    "id": "ENDPOINT-POLICY-001",
-    "title": "Actualizaciones de seguridad de endpoints",
-    "source_type": "policy",
-    "service": "Endpoint",
-    "audience": "all",
-    "content": "Los equipos corporativos deben instalar actualizaciones de seguridad dentro de la ventana definida por su criticidad. Los dispositivos que acumulen parches críticos pendientes pueden ser aislados de determinados servicios hasta recuperar el nivel de cumplimiento requerido."
-  },
-  {
-    "id": "SEC-GUIDE-001",
-    "title": "Mensajes sospechosos y phishing",
-    "source_type": "guide",
-    "service": "Security",
-    "audience": "all",
-    "content": "Si un correo solicita credenciales, códigos MFA, pagos urgentes o abrir un enlace inesperado, no responder ni introducir información. Reportar el mensaje mediante el canal corporativo de phishing y conservarlo para que el equipo de seguridad pueda analizar cabeceras, enlaces y adjuntos."
-  },
-  {
-    "id": "DB-RUNBOOK-001",
-    "title": "Recuperación de base de datos",
-    "source_type": "runbook",
-    "service": "Database",
-    "audience": "operations",
-    "content": "Antes de restaurar una base de datos, identificar el punto de recuperación requerido, comprobar la integridad del backup y validar el procedimiento en un entorno controlado cuando sea posible. Una restauración debe registrar responsable, hora, origen del backup y validaciones posteriores."
-  },
-  {
-    "id": "HR-POLICY-001",
-    "title": "Trabajo remoto y protección de información",
-    "source_type": "policy",
-    "service": "Workplace",
-    "audience": "all",
-    "content": "Durante el trabajo remoto se deben utilizar equipos corporativos, conexión VPN cuando proceda y mecanismos de bloqueo de pantalla. No se debe almacenar información corporativa en servicios personales ni compartir dispositivos de trabajo con terceros."
-  },
-  {
-    "id": "OBS-RUNBOOK-001",
-    "title": "Interpretación de alertas de monitorización",
-    "source_type": "runbook",
-    "service": "Observability",
-    "audience": "operations",
-    "content": "Una alerta indica que se ha cumplido una condición de monitorización, pero no demuestra por sí sola una causa raíz. Correlacionar métricas, logs, trazas, cambios y estado de dependencias antes de concluir qué componente originó el problema."
-  },
-  {
-    "id": "INC-PROCESS-001",
-    "title": "Escalado de incidencias críticas",
-    "source_type": "process",
-    "service": "Incident Management",
-    "audience": "operations",
-    "content": "Una incidencia debe escalarse cuando el impacto supera los umbrales definidos, existe riesgo de seguridad o el equipo responsable no puede restaurar el servicio dentro del objetivo acordado. El escalado debe incluir impacto, servicios afectados, evidencias observadas, acciones realizadas y siguiente punto de decisión."
-  }
+  {"id":"VPN-RUNBOOK-001","title":"MFA no recibido","source_type":"runbook","service":"VPN","audience":"operations","content":"Si un usuario no recibe el segundo factor al conectarse por VPN, comprobar teléfono registrado, conectividad del dispositivo y estado del proveedor MFA antes de restablecer credenciales."},
+  {"id":"VPN-RUNBOOK-002","title":"Fallos de autenticación generalizados","source_type":"runbook","service":"VPN","audience":"operations","content":"Ante fallos masivos de autenticación VPN, correlacionar hora de inicio con VPN AUTH BACKEND, proveedor de identidad y cambios recientes. Un gateway operativo no descarta fallo de autenticación."},
+  {"id":"VPN-KNOWLEDGE-BASE-003","title":"Conectado sin acceso a recursos","source_type":"knowledge_base","service":"VPN","audience":"all","content":"Si el túnel VPN está establecido pero no hay acceso a aplicaciones internas, revisar rutas, DNS, split tunneling y reglas de acceso antes de tratarlo como problema de identidad."},
+  {"id":"VPN-RUNBOOK-004","title":"Certificado de dispositivo rechazado","source_type":"runbook","service":"VPN","audience":"operations","content":"Verificar expiración, cadena de confianza, inscripción MDM y hora del equipo cuando la VPN rechaza el certificado del dispositivo."},
+  {"id":"VPN-KNOWLEDGE-BASE-005","title":"VPN lenta en teletrabajo","source_type":"knowledge_base","service":"VPN","audience":"all","content":"Para diagnosticar lentitud VPN, medir latencia, pérdida, saturación del gateway y calidad de la conexión doméstica."},
+  {"id":"VPN-POLICY-006","title":"MFA obligatorio para acceso remoto","source_type":"policy","service":"VPN","audience":"all","content":"Todo acceso VPN externo requiere MFA. Los códigos y aprobaciones son personales y no deben compartirse ni desactivarse como atajo."},
+  {"id":"VPN-RUNBOOK-007","title":"Gateway sin sesiones nuevas","source_type":"runbook","service":"VPN","audience":"operations","content":"Cuando el gateway no acepta sesiones nuevas, revisar capacidad, TLS, interfaces, balanceadores y si las sesiones existentes continúan activas."},
+  {"id":"VPN-KNOWLEDGE-BASE-008","title":"Desconexiones periódicas","source_type":"knowledge_base","service":"VPN","audience":"all","content":"Las desconexiones repetidas pueden deberse a Wi-Fi, suspensión del equipo, timeouts o mantenimiento. Registrar frecuencia, red y versión del cliente."},
+
+  {"id":"IAM-POLICY-001","title":"Restablecimiento de contraseñas","source_type":"policy","service":"Identity","audience":"all","content":"Los restablecimientos requieren verificar identidad. Soporte nunca solicita la contraseña actual. Si hay sospecha de compromiso, revocar sesiones y revisar inicios recientes."},
+  {"id":"IAM-KNOWLEDGE-BASE-002","title":"Inicio de sesión único corporativo","source_type":"knowledge_base","service":"Identity","audience":"all","content":"Si varias aplicaciones fallan simultáneamente, revisar el proveedor de identidad y la federación. Si falla una sola, comprobar configuración y grupos."},
+  {"id":"IAM-RUNBOOK-003","title":"Cuenta bloqueada","source_type":"runbook","service":"Identity","audience":"operations","content":"Ante una cuenta bloqueada, revisar origen de intentos fallidos, dispositivos con credenciales antiguas y actividad sospechosa antes de desbloquear."},
+  {"id":"IAM-KNOWLEDGE-BASE-004","title":"Notificación push MFA no recibida","source_type":"knowledge_base","service":"Identity","audience":"all","content":"Comprobar conectividad, permisos de notificaciones, registro del autenticador y estado del proveedor cuando no llega la aprobación MFA."},
+  {"id":"IAM-POLICY-005","title":"Requisitos de contraseña","source_type":"policy","service":"Identity","audience":"all","content":"Las contraseñas deben cumplir longitud y resistencia, no reutilizarse en servicios personales y almacenarse solo en gestores aprobados."},
+  {"id":"IAM-RUNBOOK-006","title":"Errores SAML tras renovación","source_type":"runbook","service":"Identity","audience":"operations","content":"Tras renovar certificados SAML, comparar metadata, huellas, fechas y configuración en proveedor de identidad y aplicación."},
+  {"id":"IAM-KNOWLEDGE-BASE-007","title":"Acceso tras cambio de grupo","source_type":"knowledge_base","service":"Identity","audience":"operations","content":"Los cambios de grupo pueden tardar en reflejarse por sesiones o cachés. Verificar grupo fuente, sincronización y token efectivo."},
+  {"id":"IAM-RUNBOOK-008","title":"Proveedor de identidad degradado","source_type":"runbook","service":"Identity","audience":"operations","content":"Si el IdP está degradado, evaluar impacto sobre SSO y MFA, revisar métricas y evitar cambios masivos de credenciales mientras esté inestable."},
+
+  {"id":"WEB-RUNBOOK-001","title":"Disponibilidad del portal corporativo","source_type":"runbook","service":"Corporate Web","audience":"operations","content":"Revisar errores HTTP, latencia del balanceador, salud de backends y dependencias de base de datos. HTTP 200 no garantiza funcionalidad completa."},
+  {"id":"WEB-RUNBOOK-002","title":"Errores HTTP 5xx","source_type":"runbook","service":"Corporate Web","audience":"operations","content":"Separar errores de proxy, aplicación y dependencias; correlacionar con despliegues, saturación y salud de servicios."},
+  {"id":"WEB-KNOWLEDGE-BASE-003","title":"Portal carga pero login falla","source_type":"knowledge_base","service":"Corporate Web","audience":"all","content":"Si la página carga pero el login falla, revisar IdP, cookies, redirecciones y SSO; es distinto de una caída general."},
+  {"id":"WEB-RUNBOOK-004","title":"Latencia elevada","source_type":"runbook","service":"Corporate Web","audience":"operations","content":"Revisar percentiles de respuesta, balanceadores, aplicación, caché y consultas de base de datos."},
+  {"id":"WEB-KNOWLEDGE-BASE-005","title":"Problemas de sesión del navegador","source_type":"knowledge_base","service":"Corporate Web","audience":"all","content":"Una sesión limpia puede resolver cookies corruptas, pero no sustituye investigar un fallo generalizado. Registrar navegador y error."},
+  {"id":"WEB-RUNBOOK-006","title":"Despliegue y rollback","source_type":"runbook","service":"Corporate Web","audience":"operations","content":"Si una versión introduce errores, confirmar impacto, registrar versión y hora, y validar el resultado del rollback."},
+  {"id":"WEB-POLICY-007","title":"Cabeceras de seguridad","source_type":"policy","service":"Corporate Web","audience":"operations","content":"Las aplicaciones deben aplicar cabeceras de seguridad definidas por plataforma; las excepciones requieren revisión."},
+  {"id":"WEB-KNOWLEDGE-BASE-008","title":"Portal no resuelve por nombre","source_type":"knowledge_base","service":"Corporate Web","audience":"operations","content":"Si funciona por IP pero no por nombre, investigar DNS, cachés y registros antes de culpar a la aplicación."},
+
+  {"id":"NET-KNOWLEDGE-BASE-001","title":"Diagnóstico DNS","source_type":"knowledge_base","service":"Network","audience":"operations","content":"Si un servicio funciona por IP pero no por nombre, validar DNS, servidores, caché y registros autoritativos."},
+  {"id":"NET-RUNBOOK-002","title":"Pérdida de paquetes entre sedes","source_type":"runbook","service":"Network","audience":"operations","content":"Medir origen, destino, interfaz, horario y porcentaje; revisar enlaces, colas, errores físicos y rutas."},
+  {"id":"NET-KNOWLEDGE-BASE-003","title":"Wi-Fi sin conectividad","source_type":"knowledge_base","service":"Network","audience":"all","content":"Si el equipo se asocia al Wi-Fi pero no navega, comprobar IP, gateway, DNS y portal de autenticación."},
+  {"id":"NET-RUNBOOK-004","title":"Cambios de routing","source_type":"runbook","service":"Network","audience":"operations","content":"Tras cambios de rutas, una conectividad parcial puede indicar asimetría o prefijos ausentes. Comparar tablas y trazas."},
+  {"id":"NET-POLICY-005","title":"Segmentación de red","source_type":"policy","service":"Network","audience":"operations","content":"Las comunicaciones entre segmentos se limitan por necesidad. Las aperturas temporales requieren propietario y caducidad."},
+  {"id":"NET-KNOWLEDGE-BASE-006","title":"Problemas de MTU","source_type":"knowledge_base","service":"Network","audience":"operations","content":"Si conexiones pequeñas funcionan pero tráfico mayor falla, probar MTU y fragmentación en túneles."},
+  {"id":"NET-RUNBOOK-007","title":"Saturación WAN","source_type":"runbook","service":"Network","audience":"operations","content":"Revisar utilización, colas, principales aplicaciones y periodo afectado; priorizar tráfico crítico."},
+  {"id":"NET-FAQ-008","title":"DNS frente a conectividad IP","source_type":"faq","service":"Network","audience":"all","content":"DNS traduce nombres; IP permite alcanzar destinos. Fallos en ambos pueden parecer iguales al usuario, pero requieren diagnósticos distintos."},
+
+  {"id":"ENDPOINT-POLICY-001","title":"Actualizaciones de seguridad","source_type":"policy","service":"Endpoint","audience":"all","content":"Los equipos deben instalar parches según criticidad; dispositivos con parches críticos pendientes pueden quedar aislados."},
+  {"id":"ENDPOINT-KNOWLEDGE-BASE-002","title":"Equipo lento tras login","source_type":"knowledge_base","service":"Endpoint","audience":"all","content":"Revisar CPU, memoria, disco, procesos de inicio, actualizaciones y antivirus antes de reinstalar."},
+  {"id":"ENDPOINT-RUNBOOK-003","title":"Alerta EDR sospechosa","source_type":"runbook","service":"Endpoint","audience":"security","content":"Preservar evidencia y revisar árbol de procesos, conexiones y usuario. El aislamiento sigue el procedimiento de respuesta."},
+  {"id":"ENDPOINT-KNOWLEDGE-BASE-004","title":"Certificado corporativo ausente","source_type":"knowledge_base","service":"Endpoint","audience":"operations","content":"Verificar inscripción MDM y políticas si falta un certificado requerido; evitar instalaciones manuales no controladas."},
+  {"id":"ENDPOINT-POLICY-005","title":"Cifrado de disco","source_type":"policy","service":"Endpoint","audience":"all","content":"Los portátiles deben mantener cifrado de disco y custodiar las claves de recuperación en el sistema aprobado."},
+  {"id":"ENDPOINT-KNOWLEDGE-BASE-006","title":"Cámara o micrófono","source_type":"knowledge_base","service":"Endpoint","audience":"all","content":"Comprobar permisos del sistema, dispositivo seleccionado y políticas corporativas."},
+  {"id":"ENDPOINT-RUNBOOK-007","title":"Dispositivo no conforme","source_type":"runbook","service":"Endpoint","audience":"operations","content":"Revisar la causa de incumplimiento, sincronizar políticas y corregir controles antes de aplicar excepciones."},
+  {"id":"ENDPOINT-POLICY-008","title":"Bloqueo de pantalla","source_type":"policy","service":"Endpoint","audience":"all","content":"Los equipos deben bloquearse al quedar desatendidos y aplicar el tiempo de inactividad definido."},
+
+  {"id":"SEC-GUIDE-001","title":"Phishing y mensajes sospechosos","source_type":"guide","service":"Security","audience":"all","content":"No responder a mensajes que soliciten credenciales, códigos MFA o pagos urgentes. Reportar y conservar el mensaje."},
+  {"id":"SEC-GUIDE-002","title":"Fatiga de MFA","source_type":"guide","service":"Security","audience":"all","content":"Si llegan solicitudes MFA no iniciadas, rechazarlas y reportarlas. Aprobar una petición desconocida puede permitir acceso no autorizado."},
+  {"id":"SEC-RUNBOOK-003","title":"Investigación de malware","source_type":"runbook","service":"Security","audience":"security","content":"Contextualizar alertas con procesos, hashes, conexiones, usuario y alcance antes de eliminar artefactos."},
+  {"id":"SEC-POLICY-004","title":"Clasificación de información","source_type":"policy","service":"Security","audience":"all","content":"Tratar la información según su clasificación; no copiar datos sensibles a servicios personales."},
+  {"id":"SEC-GUIDE-005","title":"Enlaces y códigos QR","source_type":"guide","service":"Security","audience":"all","content":"Antes de abrir enlaces o QR inesperados, comprobar remitente, dominio y contexto."},
+  {"id":"SEC-RUNBOOK-006","title":"Cuenta comprometida","source_type":"runbook","service":"Security","audience":"security","content":"Revisar inicios de sesión, factores MFA, cambios de contraseña y sesiones activas; contener según evidencia."},
+  {"id":"SEC-POLICY-007","title":"Gestión de secretos","source_type":"policy","service":"Security","audience":"operations","content":"Claves API y tokens no deben almacenarse en repositorios ni enviarse por canales no aprobados."},
+  {"id":"SEC-GUIDE-008","title":"Reporte de seguridad","source_type":"guide","service":"Security","audience":"all","content":"Un reporte útil incluye qué ocurrió, cuándo, activo afectado y evidencia disponible; evitar alterar el sistema innecesariamente."},
+
+  {"id":"DB-RUNBOOK-001","title":"Recuperación de base de datos","source_type":"runbook","service":"Database","audience":"operations","content":"Antes de restaurar, identificar punto de recuperación, validar backup y registrar responsable, hora y comprobaciones posteriores."},
+  {"id":"DB-RUNBOOK-002","title":"Latencia de consultas","source_type":"runbook","service":"Database","audience":"operations","content":"Revisar planes, bloqueos, CPU, memoria, I/O y cambios de carga. Una consulta lenta aislada no implica degradación general."},
+  {"id":"DB-KNOWLEDGE-BASE-003","title":"Pool de conexiones agotado","source_type":"knowledge_base","service":"Database","audience":"operations","content":"Revisar conexiones activas, fugas, límites y timeouts cuando el pool se agota aunque la base siga disponible."},
+  {"id":"DB-POLICY-004","title":"Backups y retención","source_type":"policy","service":"Database","audience":"operations","content":"Mantener backups según RPO/RTO y probar restauraciones periódicamente."},
+  {"id":"DB-RUNBOOK-005","title":"Réplica retrasada","source_type":"runbook","service":"Database","audience":"operations","content":"Medir lag, carga, red y estado de réplica antes de un failover."},
+  {"id":"DB-KNOWLEDGE-BASE-006","title":"Error de permisos","source_type":"knowledge_base","service":"Database","audience":"operations","content":"Verificar rol, objeto y privilegios efectivos; evitar conceder permisos amplios como solución rápida."},
+  {"id":"DB-RUNBOOK-007","title":"Almacenamiento crítico","source_type":"runbook","service":"Database","audience":"operations","content":"Identificar crecimiento, logs y tablas responsables; una ampliación de emergencia debe acompañarse de análisis."},
+  {"id":"DB-PROCESS-008","title":"Mantenimiento planificado","source_type":"process","service":"Database","audience":"operations","content":"Las tareas de mantenimiento deben comunicar ventana, impacto, validaciones y plan de reversión."},
+
+  {"id":"WORK-POLICY-001","title":"Trabajo remoto y protección","source_type":"policy","service":"Workplace","audience":"all","content":"Usar equipos corporativos, VPN cuando proceda y bloqueo de pantalla; no almacenar información en servicios personales."},
+  {"id":"WORK-KNOWLEDGE-BASE-002","title":"Reserva de salas","source_type":"knowledge_base","service":"Workplace","audience":"all","content":"Si una reserva no aparece, comprobar zona horaria, recurso y aceptación antes de escalar."},
+  {"id":"WORK-POLICY-003","title":"Dispositivos personales","source_type":"policy","service":"Workplace","audience":"all","content":"El acceso BYOD solo se permite en escenarios aprobados y con controles definidos."},
+  {"id":"WORK-KNOWLEDGE-BASE-004","title":"Audio en videollamadas","source_type":"knowledge_base","service":"Workplace","audience":"all","content":"Comprobar dispositivo, permisos y conexión antes de atribuir el problema al servicio."},
+  {"id":"WORK-RUNBOOK-005","title":"Servicio de reuniones degradado","source_type":"runbook","service":"Workplace","audience":"operations","content":"Revisar estado del proveedor, regiones afectadas y métricas; comunicar alternativas aprobadas."},
+  {"id":"WORK-GUIDE-006","title":"Protección visual","source_type":"guide","service":"Workplace","audience":"all","content":"Evitar exponer información sensible en espacios públicos y bloquear el equipo al ausentarse."},
+  {"id":"WORK-POLICY-007","title":"Compartición externa","source_type":"policy","service":"Workplace","audience":"all","content":"Verificar clasificación, destinatarios y periodo de acceso; no usar enlaces públicos para información interna."},
+  {"id":"WORK-KNOWLEDGE-BASE-008","title":"Calendario no sincroniza","source_type":"knowledge_base","service":"Workplace","audience":"all","content":"Comprobar conectividad, cuenta, zona horaria y estado del servicio antes de recrear perfiles."},
+
+  {"id":"OBS-RUNBOOK-001","title":"Interpretación de alertas","source_type":"runbook","service":"Observability","audience":"operations","content":"Una alerta no demuestra causa raíz. Correlacionar métricas, logs, trazas, cambios y dependencias."},
+  {"id":"OBS-KNOWLEDGE-BASE-002","title":"Métrica, log y traza","source_type":"knowledge_base","service":"Observability","audience":"operations","content":"Las métricas resumen comportamiento, los logs registran eventos y las trazas siguen solicitudes entre componentes."},
+  {"id":"OBS-RUNBOOK-003","title":"Latencia sin errores","source_type":"runbook","service":"Observability","audience":"operations","content":"Revisar percentiles y trazas cuando aumenta latencia sin errores; puede existir saturación o dependencia lenta."},
+  {"id":"OBS-POLICY-004","title":"Retención de logs","source_type":"policy","service":"Observability","audience":"operations","content":"Conservar logs según requisitos operativos, de seguridad y privacidad; no incluir secretos innecesarios."},
+  {"id":"OBS-RUNBOOK-005","title":"Alerta tras despliegue","source_type":"runbook","service":"Observability","audience":"operations","content":"Correlacionar versión, hora, métrica y alcance; la proximidad temporal no prueba causalidad."},
+  {"id":"OBS-KNOWLEDGE-BASE-006","title":"Falsos positivos","source_type":"knowledge_base","service":"Observability","audience":"operations","content":"Ajustar umbrales usando datos históricos y considerando el riesgo de perder eventos reales."},
+  {"id":"OBS-RUNBOOK-007","title":"Dashboard sin datos","source_type":"runbook","service":"Observability","audience":"operations","content":"Si un dashboard queda vacío, comprobar fuente, pipeline, permisos y rango temporal antes de asumir que no hay eventos."},
+  {"id":"OBS-PROCESS-008","title":"Cambio de umbral","source_type":"process","service":"Observability","audience":"operations","content":"Los cambios de umbral deben documentar motivo, valor anterior, nuevo valor y efecto esperado."},
+
+  {"id":"INC-PROCESS-001","title":"Escalado de incidencias críticas","source_type":"process","service":"Incident Management","audience":"operations","content":"Escalar cuando impacto supera umbrales, existe riesgo de seguridad o no se restaura el servicio dentro del objetivo."},
+  {"id":"INC-PROCESS-002","title":"Declaración de incidente mayor","source_type":"process","service":"Incident Management","audience":"operations","content":"Un incidente mayor requiere coordinación, responsable, canal de comunicación y cadencia de actualizaciones."},
+  {"id":"INC-GUIDE-003","title":"Separar hechos de hipótesis","source_type":"guide","service":"Incident Management","audience":"operations","content":"Registrar por separado hechos observados, hipótesis y acciones; expresar hipótesis como posibilidades."},
+  {"id":"INC-PROCESS-004","title":"Cierre de incidente","source_type":"process","service":"Incident Management","audience":"operations","content":"Confirmar recuperación, impacto final, acciones y evidencias antes del cierre."},
+  {"id":"INC-GUIDE-005","title":"Comunicación de estado","source_type":"guide","service":"Incident Management","audience":"operations","content":"Indicar impacto conocido, estado, acciones y próxima revisión; no presentar hipótesis como hechos."},
+  {"id":"INC-PROCESS-006","title":"Postmortem","source_type":"process","service":"Incident Management","audience":"operations","content":"El postmortem debe documentar línea temporal, impacto, factores contribuyentes, acciones y responsables sin buscar culpables."},
+  {"id":"INC-POLICY-007","title":"Severidad del incidente","source_type":"policy","service":"Incident Management","audience":"operations","content":"La severidad se determina por impacto y urgencia, no por visibilidad o número de mensajes recibidos."},
+  {"id":"INC-GUIDE-008","title":"Registro de decisiones","source_type":"guide","service":"Incident Management","audience":"operations","content":"Documentar decisiones relevantes, evidencia disponible, responsable y momento para facilitar auditoría y aprendizaje."}
 ]
