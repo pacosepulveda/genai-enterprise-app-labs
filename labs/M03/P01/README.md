@@ -72,3 +72,19 @@ El notebook incluye experimentos guiados sobre:
 - un escenario artificial con pocas muestras y etiquetas ruidosas para hacer visible el sobreajuste.
 
 Modifica los valores indicados al final y compara las curvas y métricas.
+
+## Qué tiene que hacer el alumno
+
+1. Al comenzar M03, crea o activa la rama del módulo:
+
+```bash
+git fetch --tags
+git switch -c curso-m03 m03-complete
+```
+
+Si ya existe: `git switch curso-m03`.
+2. Abre `neural_network_under_the_hood.ipynb` con **Python (GenAI Course)** y ejecuta las celdas en orden.
+3. Detente en los puntos donde se muestran parámetros, activaciones, logits, loss y gradientes; no te limites a ejecutar hasta el final.
+4. Realiza los experimentos guiados de `learning rate`, capacidad de la red y sobreajuste.
+5. Compara train y validation y relaciona los cambios de las curvas con la frontera de decisión.
+6. Esta práctica no utiliza AWS: el objetivo es poder explicar el ciclo `forward → loss → backward → optimizer.step()` viendo sus efectos.
