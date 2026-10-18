@@ -18,3 +18,24 @@ aws sso login --profile genai-course --use-device-code
 ```
 
 No guardes credenciales AWS en notebooks, archivos del repositorio ni mensajes.
+
+## Qué tiene que hacer el alumno
+
+1. Al comenzar el curso, actualiza los tags y crea tu rama de trabajo para el preflight:
+
+```bash
+git fetch --tags
+git switch -c curso-p00 m00-start
+```
+
+Si la rama `curso-p00` ya existe, utiliza simplemente:
+
+```bash
+git switch curso-p00
+```
+
+2. Completa los seis pasos anteriores del preflight sin saltarte la comprobación `READY`.
+3. Si AWS SSO ha caducado, renueva únicamente la sesión con `aws sso login --profile genai-course --use-device-code`.
+4. Ejecuta `preflight.ipynb` completo con el kernel **Python (GenAI Course)**.
+5. Considera el preflight terminado cuando el entorno, la identidad AWS y la llamada real a Bedrock funcionan sin errores.
+6. No hagas cambios en `main` ni guardes credenciales dentro del repositorio.

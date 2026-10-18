@@ -56,3 +56,20 @@ Sirve para entender el coste y las limitaciones de entrenar modelos generativos 
 - **M04-P02:** análisis multimodal `texto + imagen`;
 - **M04-P03:** generación de activos visuales con un foundation model;
 - **M04-P04:** integración de capacidades visuales en la aplicación.
+
+## Qué tiene que hacer el alumno
+
+1. Al comenzar M04, crea o activa la rama del módulo:
+
+```bash
+git fetch --tags
+git switch -c curso-m04 m04-complete
+```
+
+Si ya existe: `git switch curso-m04`.
+2. Abre `vae_gan_diffusion.ipynb` con **Python (GenAI Course)** y ejecuta las celdas en orden.
+3. En VAE, compara reconstrucciones, muestras y el papel del espacio latente.
+4. En GAN, observa la evolución por epochs y relaciona el generador y el discriminador con el resultado visual; no juzgues la práctica únicamente por la calidad final de los dígitos.
+5. En Diffusion, sigue visualmente cómo se añade ruido y qué tendría que aprender el proceso inverso.
+6. No ejecutes P01B en el Codespace CPU. Si el instructor realiza la demo GPU, sigue las instrucciones específicas de P01B.
+7. Al terminar, debes poder explicar por qué en una aplicación empresarial puede ser más práctico integrar un foundation model que entrenar un generador propio.

@@ -89,3 +89,13 @@ consulta → chunking → retrieval → contexto → LLM → respuesta con fuent
 ```
 
 Mantener esta separación permite entender qué parte del futuro RAG corresponde realmente al retrieval.
+
+## Qué tiene que hacer el alumno
+
+1. Continúa en `curso-m05` y comprueba que AWS SSO está activo.
+2. Abre `embeddings_semantic_search.ipynb` con **Python (GenAI Course)** y ejecuta las celdas en orden.
+3. Observa dimensión, norma y tokens de los embeddings y compara similitud semántica con coincidencia literal.
+4. Construye el índice de los 80 documentos y prueba distintas consultas, `top-k` y filtros de metadata.
+5. Examina la proyección 2D como ayuda visual, sin confundirla con la geometría completa de 512 dimensiones.
+6. Arranca `streamlit run app/Home.py`, abre **Knowledge** y repite una consulta desde la GUI inspeccionando score, contenido y metadata.
+7. Recuerda que en P02 solo hacemos retrieval: no esperes todavía una respuesta generada por el LLM.

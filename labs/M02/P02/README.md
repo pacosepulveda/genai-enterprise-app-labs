@@ -47,3 +47,13 @@ arquitectura híbrida
 ```
 
 El umbral de confianza del ejemplo híbrido es didáctico y debe validarse con datos reales antes de usarlo como política de producción.
+
+## Qué tiene que hacer el alumno
+
+1. Continúa en `curso-m02`; no crees una rama nueva para P02.
+2. Renueva AWS SSO si fuese necesario.
+3. Abre `classical_ml_vs_llm.ipynb` con **Python (GenAI Course)** y ejecuta el recorrido completo.
+4. Compara los mismos tickets con ML clásico y con el LLM fijándote en latencia, coste, interpretación y comportamiento semántico.
+5. Prueba los casos ambiguos y fuera de distribución y explica por qué ambos enfoques fallan de forma distinta.
+6. Arranca `classical_ml_vs_llm_app.py` y utiliza la comparación lado a lado y el ejemplo de router híbrido.
+7. No compares la probabilidad de Logistic Regression con una supuesta “confianza” del LLM como si fueran la misma magnitud.

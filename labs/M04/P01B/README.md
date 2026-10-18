@@ -64,3 +64,13 @@ Esta demo sigue siendo conceptual. La evolución funcional de la aplicación con
 - **M04-P02:** `Analyze` acepta texto + imagen;
 - **M04-P03:** generación visual mediante un foundation model vía API;
 - **M04-P04:** integración de capacidades visuales en la aplicación.
+
+## Qué tiene que hacer el alumno
+
+1. Esta práctica es complementaria y se realiza únicamente si el instructor indica que hay una GPU disponible.
+2. Mantén tu trabajo del módulo en `curso-m04`; el notebook se abre en Google Colab, no en el Codespace CPU.
+3. Abre `diffusion_in_action_colab.ipynb` en Colab y selecciona una **T4 GPU** o superior antes de ejecutar nada.
+4. Ejecuta el notebook desde el principio y verifica que CUDA está disponible.
+5. Observa los estados intermedios del denoising y compara al menos un cambio de prompt, semilla o número de pasos.
+6. No interpretes las imágenes intermedias como imágenes RGB que el modelo genera en cada paso: son visualizaciones de latentes decodificados para poder inspeccionarlos.
+7. Si no hay GPU disponible, no intentes forzar esta práctica en Codespaces; continúa con M04-P02.

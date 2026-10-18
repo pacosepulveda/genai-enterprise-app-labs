@@ -43,3 +43,12 @@ representación inicial
 ```
 
 Un peso de attention alto es una señal observable del mecanismo, pero no debe presentarse automáticamente como una explicación causal completa de una predicción.
+
+## Qué tiene que hacer el alumno
+
+1. Continúa en `curso-m03`; no crees otra rama para P02.
+2. Abre `attention_tiny_transformer.ipynb` con **Python (GenAI Course)** y ejecuta las celdas en orden.
+3. Sigue el recorrido completo `tokens → embeddings → Q/K/V → scores → softmax → contexto` y relaciona cada matriz con su función.
+4. Compara las frases `vpn no funciona` y `vpn sí funciona` y observa cómo cambia la representación contextual del mismo token.
+5. Modifica los parámetros indicados (`d_model`, `ff_dim`, épocas o frases) y compara los resultados.
+6. No necesitas AWS. El objetivo es entender el mecanismo y sus representaciones, no construir un Transformer de producción.

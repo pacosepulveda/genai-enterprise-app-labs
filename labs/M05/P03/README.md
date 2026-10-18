@@ -60,3 +60,12 @@ La salida del modelo no se acepta como texto libre: se valida contra un JSON Sch
 `requested_actions` contiene únicamente acciones que aparecen explícitamente solicitadas en el documento.
 
 `recommended_actions` contiene propuestas del modelo y se muestra por separado para no presentarlas como hechos originales.
+
+## Qué tiene que hacer el alumno
+
+1. Continúa en `curso-m05` y renueva AWS SSO si fuese necesario.
+2. Abre `enterprise_document_analyzer.ipynb` con **Python (GenAI Course)** y ejecuta los tres tipos de documento de ejemplo.
+3. Para cada caso, compara `requested_actions` con `recommended_actions` y comprueba que las propuestas del modelo no se presentan como solicitudes originales.
+4. Revisa entidades, hechos, fechas/plazos e incertidumbres y busca cualquier dato que no aparezca en el documento fuente.
+5. Arranca `streamlit run app/Home.py`, abre **Analyze → Enterprise Document** y prueba al menos uno de los documentos desde la interfaz.
+6. Considera la práctica completada cuando puedes explicar cómo una salida estructurada permite tratar correos, tickets y políticas con el mismo pipeline sin convertir recomendaciones en hechos.
