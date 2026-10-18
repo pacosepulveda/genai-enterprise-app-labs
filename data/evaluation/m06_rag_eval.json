@@ -1,0 +1,62 @@
+[
+  {
+    "id": "E01",
+    "query": "No recibo el segundo factor al conectarme por VPN, ¿qué debo revisar?",
+    "expected_document_id": "VPN-RUNBOOK-001",
+    "service": "VPN"
+  },
+  {
+    "id": "E02",
+    "query": "El gateway VPN ha dejado de aceptar sesiones nuevas, ¿qué comprobaciones corresponden?",
+    "expected_document_id": "VPN-RUNBOOK-007",
+    "service": "VPN"
+  },
+  {
+    "id": "E03",
+    "query": "Una cuenta está bloqueada después de muchos intentos fallidos. ¿Qué debería investigar antes de desbloquearla?",
+    "expected_document_id": "IAM-RUNBOOK-003",
+    "service": "Identity"
+  },
+  {
+    "id": "E04",
+    "query": "No llega la notificación push de MFA al autenticador. ¿Qué puntos se deben comprobar?",
+    "expected_document_id": "IAM-KNOWLEDGE-BASE-004",
+    "service": "Identity"
+  },
+  {
+    "id": "E05",
+    "query": "Estamos viendo errores HTTP 5xx. ¿Cómo distinguimos si vienen del proxy, de la aplicación o de una dependencia?",
+    "expected_document_id": "WEB-RUNBOOK-002",
+    "service": "Corporate Web"
+  },
+  {
+    "id": "E06",
+    "query": "El portátil se conecta al Wi-Fi pero no puede navegar. ¿Qué debemos comprobar?",
+    "expected_document_id": "NET-KNOWLEDGE-BASE-003",
+    "service": "Network"
+  },
+  {
+    "id": "E07",
+    "query": "Falta un certificado corporativo requerido en un equipo gestionado. ¿Qué conviene revisar?",
+    "expected_document_id": "ENDPOINT-KNOWLEDGE-BASE-004",
+    "service": "Endpoint"
+  },
+  {
+    "id": "E08",
+    "query": "Estoy recibiendo solicitudes MFA que yo no he iniciado. ¿Qué debo hacer?",
+    "expected_document_id": "SEC-GUIDE-002",
+    "service": "Security"
+  },
+  {
+    "id": "E09",
+    "query": "Antes de restaurar una base de datos, ¿qué información hay que identificar y validar?",
+    "expected_document_id": "DB-RUNBOOK-001",
+    "service": "Database"
+  },
+  {
+    "id": "E10",
+    "query": "El pool de conexiones está agotado aunque la base de datos sigue disponible. ¿Qué hay que revisar?",
+    "expected_document_id": "DB-KNOWLEDGE-BASE-003",
+    "service": "Database"
+  }
+]
