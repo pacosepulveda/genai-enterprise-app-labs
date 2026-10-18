@@ -1,0 +1,17 @@
+[
+  {
+    "id": "DOC-EMAIL-001",
+    "label": "Correo — renovación de certificado",
+    "text": "Asunto: Renovación del certificado TLS del portal de clientes\n\nDe: Marta Ruiz, Responsable de Plataforma\nPara: Equipo de Infraestructura\n\nEl certificado TLS del portal clientes.acme.example caduca el 27 de octubre. Seguridad ha pedido que la renovación quede completada antes del 24 de octubre para disponer de margen de validación.\n\nEl portal funciona actualmente con normalidad y no tenemos una incidencia abierta relacionada con el certificado. Por favor, confirmad hoy quién realizará el cambio y la ventana prevista. Después de la renovación necesitamos validar acceso web y revisar la cadena de certificados.\n\nGracias,\nMarta"
+  },
+  {
+    "id": "DOC-TICKET-001",
+    "label": "Ticket — acceso a aplicación",
+    "text": "Ticket SD-48219\nSolicitante: Carlos Martín\nServicio: CRM comercial\n\nDesde esta mañana puedo entrar en el portal corporativo, pero al abrir el CRM aparece \"Access denied\". Ayer funcionaba correctamente. Otros dos compañeros del equipo comercial me han dicho que pueden acceder sin problemas.\n\nNecesito entrar antes de la reunión de las 16:00 para consultar el histórico del cliente. No he cambiado la contraseña ni el equipo.\n\nSolicito que soporte revise mi acceso al CRM."
+  },
+  {
+    "id": "DOC-POLICY-001",
+    "label": "Política — uso de información",
+    "text": "Política de manejo de información corporativa — extracto\n\nLa información clasificada como Confidencial no debe almacenarse en servicios personales de almacenamiento en la nube. El acceso remoto a esta información debe realizarse desde dispositivos corporativos gestionados y utilizando los mecanismos de acceso aprobados por la organización.\n\nLas excepciones requieren autorización previa del responsable de Seguridad de la Información y deben quedar registradas. Esta política no define el procedimiento técnico de configuración de la VPN ni los pasos de resolución de incidencias de acceso."
+  }
+]
