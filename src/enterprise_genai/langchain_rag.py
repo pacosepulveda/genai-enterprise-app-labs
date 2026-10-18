@@ -6,7 +6,6 @@ and add measurable retrieval evaluation without hiding what is happening.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Iterable
 
 from langchain_aws import ChatBedrockConverse
@@ -133,6 +132,78 @@ def _contains_expected_document(results: list[dict], expected_document_id: str) 
     return None
 
 
+def _metrics_from_rows(rows: list[dict], *, k: int) -> dict:
+    clipped = []
+    hits = 0
+    reciprocal_ranks = []
+    for row in rows:
+        rank = row["rank"] if row["rank"] is not None and row["rank"] <= k else None
+        hit = rank is not None
+        rr = 1.0 / rank if rank else 0.0
+        hits += int(hit)
+        reciprocal_ranks.append(rr)
+        clipped.append({**row, "hit": hit, "rank": rank, "reciprocal_rank": rr})
+
+    total = len(rows)
+    return {
+        "k": k,
+        "cases": total,
+        "hits": hits,
+        "hit_rate": hits / total if total else 0.0,
+        "mrr": sum(reciprocal_ranks) / total if total else 0.0,
+        "rows": clipped,
+    }
+
+
+def evaluate_retrieval_multi_k(
+    store: Chroma,
+    cases: list[dict],
+    *,
+    ks: tuple[int, ...] = (1, 3, 5),
+    use_service_filter: bool = False,
+) -> dict:
+    """Evaluate several k values while embedding each benchmark query only once.
+
+    Retrieval is executed at max(k), then smaller-k metrics are derived from the
+    same ranking. This keeps the exercise fast enough for a live class.
+    """
+    if not ks or min(ks) < 1:
+        raise ValueError("ks must contain positive integers")
+
+    max_k = max(ks)
+    base_rows = []
+
+    for case in cases:
+        metadata_filter = {"service": case["service"]} if use_service_filter else None
+        results = retrieve_with_scores(
+            store,
+            case["query"],
+            k=max_k,
+            metadata_filter=metadata_filter,
+        )
+        rank = _contains_expected_document(results, case["expected_document_id"])
+        base_rows.append(
+            {
+                "id": case["id"],
+                "query": case["query"],
+                "expected_document_id": case["expected_document_id"],
+                "service": case["service"],
+                "rank": rank,
+                "top_document_id": (
+                    results[0]["document"].metadata.get("document_id") if results else None
+                ),
+            }
+        )
+
+    metrics = {k: _metrics_from_rows(base_rows, k=k) for k in sorted(set(ks))}
+    return {
+        "use_service_filter": use_service_filter,
+        "max_k": max_k,
+        "metrics": metrics,
+        "base_rows": base_rows,
+    }
+
+
 def evaluate_retrieval(
     store: Chroma,
     cases: list[dict],
@@ -140,49 +211,15 @@ def evaluate_retrieval(
     k: int,
     use_service_filter: bool = False,
 ) -> dict:
-    """Measure Hit Rate@k and MRR@k over a small labelled benchmark."""
-    rows = []
-    reciprocal_ranks: list[float] = []
-    hits = 0
-
-    for case in cases:
-        metadata_filter = {"service": case["service"]} if use_service_filter else None
-        results = retrieve_with_scores(
-            store,
-            case["query"],
-            k=k,
-            metadata_filter=metadata_filter,
-        )
-        rank = _contains_expected_document(results, case["expected_document_id"])
-        hit = rank is not None
-        rr = 1.0 / rank if rank else 0.0
-        hits += int(hit)
-        reciprocal_ranks.append(rr)
-        rows.append(
-            {
-                "id": case["id"],
-                "query": case["query"],
-                "expected_document_id": case["expected_document_id"],
-                "service": case["service"],
-                "hit": hit,
-                "rank": rank,
-                "reciprocal_rank": rr,
-                "top_document_id": (
-                    results[0]["document"].metadata.get("document_id") if results else None
-                ),
-            }
-        )
-
-    total = len(cases)
-    return {
-        "k": k,
-        "use_service_filter": use_service_filter,
-        "cases": total,
-        "hits": hits,
-        "hit_rate": hits / total if total else 0.0,
-        "mrr": sum(reciprocal_ranks) / total if total else 0.0,
-        "rows": rows,
-    }
+    """Compatibility helper for evaluating a single k value."""
+    result = evaluate_retrieval_multi_k(
+        store,
+        cases,
+        ks=(k,),
+        use_service_filter=use_service_filter,
+    )
+    metric = result["metrics"][k]
+    return {**metric, "use_service_filter": use_service_filter}
 
 
 def format_context(results: list[dict]) -> str:
