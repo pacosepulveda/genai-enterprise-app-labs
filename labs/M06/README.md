@@ -21,11 +21,11 @@
 ## M06-P04 — LangGraph Enterprise Workflow
 
 **Superficie:** Jupyter + Streamlit.  
-**Alumno:** observa nodos, estado, routing, tools y aprobación humana.  
-**Resultado:** capacidad `Investigate`.
+**Alumno:** observa nodos, estado, routing, tools, checkpointing y aprobación humana.  
+**Resultado:** capacidad `Investigate` con un workflow empresarial controlado y observable.
 
 ## M06-P05 — Enterprise GenAI Assistant
 
 **Superficie:** Streamlit.  
-**Alumno:** integra y prueba Knowledge, Analyze e Investigate; inspecciona trazas, retrieval y tool calls, y prueba casos adversariales básicos.  
-**Resultado:** prototipo empresarial final.
+**Alumno:** ejecuta un caso 360º que integra Analyze, Knowledge e Investigate; revisa trazas y uso de tokens; completa una aprobación humana; ejecuta checks deterministas de control y una prueba básica de prompt injection contra RAG; finalmente revisa la arquitectura completa, incluida Create.  
+**Resultado:** prototipo empresarial final integrado, observable y con límites de producción explícitos.
