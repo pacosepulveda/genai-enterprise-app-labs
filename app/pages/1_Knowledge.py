@@ -7,19 +7,18 @@ import streamlit as st
 
 from enterprise_genai.config import get_settings
 from enterprise_genai.embeddings import DEFAULT_DIMENSIONS, embed_documents, semantic_search
+from enterprise_genai.rag import (
+    answer_with_context,
+    build_rag_index,
+    chunk_documents,
+    retrieve_chunks,
+)
 
 
 st.set_page_config(page_title="Knowledge", page_icon="💬", layout="wide")
 
-st.title("💬 Knowledge — Semantic Retrieval Explorer")
-st.caption(
-    "M05-P02 · Consulta → embedding → similitud coseno → ranking de fragmentos empresariales"
-)
-
-st.info(
-    "En esta etapa Knowledge recupera fragmentos relevantes, pero todavía no genera una respuesta con un LLM. "
-    "El RAG completo llegará en M06."
-)
+st.title("💬 Knowledge")
+st.caption("M05 retrieval semántico → M06 RAG desde cero, con el pipeline visible")
 
 CORPUS_PATH = Path("data/knowledge/m05_enterprise_chunks.json")
 settings = get_settings()
@@ -30,7 +29,7 @@ def load_corpus() -> list[dict]:
 
 
 @st.cache_resource(show_spinner=False)
-def build_cached_index() -> tuple[list[dict], dict]:
+def build_cached_semantic_index() -> tuple[list[dict], dict]:
     documents = load_corpus()
     index = embed_documents(
         documents,
@@ -40,14 +39,42 @@ def build_cached_index() -> tuple[list[dict], dict]:
     return documents, index
 
 
+@st.cache_resource(show_spinner=False)
+def build_cached_rag_index() -> tuple[list[dict], list[dict], dict]:
+    documents = load_corpus()
+    chunks = chunk_documents(documents, chunk_size_words=36, overlap_words=8)
+    index = build_rag_index(
+        chunks,
+        dimensions=DEFAULT_DIMENSIONS,
+        normalize=True,
+        max_workers=8,
+    )
+    return documents, chunks, index
+
+
 documents_preview = load_corpus()
 services = ["Todos"] + sorted({doc["service"] for doc in documents_preview})
 source_types = ["Todos"] + sorted({doc["source_type"] for doc in documents_preview})
 
+mode = st.radio(
+    "Modo",
+    ["Búsqueda semántica (M05)", "RAG desde cero (M06)"],
+    horizontal=True,
+)
+
+if mode.startswith("Búsqueda"):
+    st.info(
+        "Recuperamos documentos por similitud semántica. No se genera todavía una respuesta con un LLM."
+    )
+else:
+    st.info(
+        "RAG = retrieval + contexto + generación. La respuesta se construye únicamente con los chunks recuperados y muestra sus fuentes."
+    )
+
 query = st.text_input(
     "Consulta",
-    value="No me llega el código de seguridad al móvil cuando intento conectarme desde casa",
-    help="Prueba una pregunta natural. No necesitas copiar las mismas palabras que aparecen en los documentos.",
+    value="¿Qué debo comprobar si no recibo el segundo factor al conectarme por VPN?",
+    help="La consulta se convierte en embedding antes de compararla con el índice.",
 )
 
 c1, c2, c3 = st.columns(3)
@@ -58,44 +85,50 @@ with c2:
 with c3:
     source_filter = st.selectbox("Tipo de fuente", source_types)
 
-st.caption(
-    f"Corpus: **{len(documents_preview)} fragmentos** · Modelo: "
-    f"`{settings.bedrock_embedding_model_id}` · Dimensiones: **{DEFAULT_DIMENSIONS}**"
-)
+filters = {"service": service_filter, "source_type": source_filter}
 
-search = st.button("Buscar semánticamente", type="primary", use_container_width=True)
+if mode.startswith("Búsqueda"):
+    st.caption(
+        f"Corpus: **{len(documents_preview)} documentos** · Modelo: "
+        f"`{settings.bedrock_embedding_model_id}` · Dimensiones: **{DEFAULT_DIMENSIONS}**"
+    )
+    button_label = "Buscar semánticamente"
+else:
+    preview_chunks = chunk_documents(documents_preview, chunk_size_words=36, overlap_words=8)
+    st.caption(
+        f"Corpus: **{len(documents_preview)} documentos → {len(preview_chunks)} chunks** · "
+        f"Embeddings: `{settings.bedrock_embedding_model_id}` · LLM: `{settings.bedrock_text_model_id}`"
+    )
+    button_label = "Preguntar con RAG"
 
-if search:
+run = st.button(button_label, type="primary", use_container_width=True)
+
+if run:
     if not query.strip():
-        st.warning("Introduce una consulta antes de buscar.")
+        st.warning("Introduce una consulta antes de continuar.")
         st.stop()
 
-    with st.spinner("Preparando índice y generando embedding de la consulta..."):
-        try:
-            documents, index = build_cached_index()
-            result = semantic_search(
-                query,
-                documents,
-                index["matrix"],
-                top_k=top_k,
-                filters={
-                    "service": service_filter,
-                    "source_type": source_filter,
-                },
-                dimensions=DEFAULT_DIMENSIONS,
-            )
-        except Exception as exc:
-            st.error(f"No se pudo completar la búsqueda semántica: {exc}")
-            st.stop()
+    if mode.startswith("Búsqueda"):
+        with st.spinner("Preparando índice y generando embedding de la consulta..."):
+            try:
+                documents, index = build_cached_semantic_index()
+                result = semantic_search(
+                    query,
+                    documents,
+                    index["matrix"],
+                    top_k=top_k,
+                    filters=filters,
+                    dimensions=DEFAULT_DIMENSIONS,
+                )
+            except Exception as exc:
+                st.error(f"No se pudo completar la búsqueda semántica: {exc}")
+                st.stop()
 
-    st.success(
-        f"Recuperados {len(result['results'])} fragmentos de "
-        f"{result['candidate_count']} candidatos tras aplicar filtros."
-    )
+        st.success(
+            f"Recuperados {len(result['results'])} documentos de "
+            f"{result['candidate_count']} candidatos tras aplicar filtros."
+        )
 
-    if not result["results"]:
-        st.warning("No hay documentos que cumplan los filtros seleccionados.")
-    else:
         score_rows = []
         for item in result["results"]:
             doc = item["document"]
@@ -110,47 +143,128 @@ if search:
                 }
             )
 
-        st.subheader("Ranking")
-        ranking_df = pd.DataFrame(score_rows)
-        st.dataframe(ranking_df, use_container_width=True, hide_index=True)
+        if score_rows:
+            st.subheader("Ranking")
+            ranking_df = pd.DataFrame(score_rows)
+            st.dataframe(ranking_df, use_container_width=True, hide_index=True)
+            st.bar_chart(ranking_df.set_index("id")[["score"]])
 
-        chart_df = ranking_df.set_index("id")[["score"]]
-        st.bar_chart(chart_df)
+            st.subheader("Documentos recuperados")
+            for item in result["results"]:
+                doc = item["document"]
+                with st.expander(
+                    f"#{item['rank']} · {doc['title']} · score {item['score']:.4f}",
+                    expanded=item["rank"] == 1,
+                ):
+                    m1, m2, m3 = st.columns(3)
+                    m1.markdown(f"**Servicio:** `{doc['service']}`")
+                    m2.markdown(f"**Fuente:** `{doc['source_type']}`")
+                    m3.markdown(f"**Audiencia:** `{doc['audience']}`")
+                    st.write(doc["content"])
+                    st.caption(f"ID: {doc['id']}")
 
-        st.subheader("Fragmentos recuperados")
-        for item in result["results"]:
-            doc = item["document"]
-            with st.expander(
-                f"#{item['rank']} · {doc['title']} · score {item['score']:.4f}",
-                expanded=item["rank"] == 1,
-            ):
-                m1, m2, m3 = st.columns(3)
-                m1.markdown(f"**Servicio:** `{doc['service']}`")
-                m2.markdown(f"**Fuente:** `{doc['source_type']}`")
-                m3.markdown(f"**Audiencia:** `{doc['audience']}`")
-                st.write(doc["content"])
-                st.caption(f"ID: {doc['id']}")
+        with st.expander("🔎 Abrir la caja: embedding y retrieval"):
+            query_vector = result["query_embedding"]
+            st.write(
+                {
+                    "embedding_model": settings.bedrock_embedding_model_id,
+                    "dimensions": len(query_vector),
+                    "query_vector_norm": round(float(np.linalg.norm(query_vector)), 6),
+                    "query_input_tokens": result["query_tokens"],
+                    "query_embedding_latency_ms": result["query_latency_ms"],
+                    "index_shape": list(index["matrix"].shape),
+                    "documents_embedded": index["request_count"],
+                    "filters": result["filters"],
+                }
+            )
+            st.markdown("**Primeras 12 coordenadas del embedding de consulta**")
+            st.code(np.array2string(query_vector[:12], precision=5), language=None)
 
-    with st.expander("🔎 Abrir la caja: embedding y retrieval"):
-        query_vector = result["query_embedding"]
-        st.write(
-            {
-                "embedding_model": settings.bedrock_embedding_model_id,
-                "dimensions": len(query_vector),
-                "query_vector_norm": round(float(np.linalg.norm(query_vector)), 6),
-                "query_input_tokens": result["query_tokens"],
-                "query_embedding_latency_ms": result["query_latency_ms"],
-                "index_shape": list(index["matrix"].shape),
-                "documents_embedded": index["request_count"],
-                "index_embedding_latency_ms_total": int(sum(index["latencies_ms"])),
-                "filters": result["filters"],
-            }
+    else:
+        with st.spinner("Chunking → embeddings → retrieval → contexto → LLM..."):
+            try:
+                documents, chunks, index = build_cached_rag_index()
+                retrieval = retrieve_chunks(
+                    query,
+                    chunks,
+                    index["matrix"],
+                    top_k=top_k,
+                    filters=filters,
+                    dimensions=DEFAULT_DIMENSIONS,
+                )
+                if not retrieval["results"]:
+                    st.warning("No hay chunks que cumplan los filtros seleccionados.")
+                    st.stop()
+                generated = answer_with_context(query, retrieval["results"])
+            except Exception as exc:
+                st.error(f"No se pudo completar el RAG: {exc}")
+                st.stop()
+
+        st.success(
+            f"RAG completado con {len(retrieval['results'])} chunks recuperados de "
+            f"{retrieval['candidate_count']} candidatos."
         )
-        st.markdown("**Primeras 12 coordenadas del embedding de consulta**")
-        st.code(np.array2string(query_vector[:12], precision=5), language=None)
+
+        st.subheader("Respuesta fundamentada")
+        st.markdown(generated["answer"])
+
+        score_rows = []
+        for item in retrieval["results"]:
+            chunk = item["document"]
+            score_rows.append(
+                {
+                    "rank": item["rank"],
+                    "score": round(item["score"], 4),
+                    "chunk_id": chunk["id"],
+                    "document_id": chunk["document_id"],
+                    "service": chunk["service"],
+                    "title": chunk["title"],
+                }
+            )
+
+        st.subheader("Chunks recuperados")
+        st.dataframe(pd.DataFrame(score_rows), use_container_width=True, hide_index=True)
+        for i, item in enumerate(retrieval["results"], start=1):
+            chunk = item["document"]
+            with st.expander(
+                f"[S{i}] {chunk['title']} · {chunk['id']} · score {item['score']:.4f}",
+                expanded=i == 1,
+            ):
+                st.write(chunk["content"])
+                st.caption(
+                    f"Documento: {chunk['document_id']} · Servicio: {chunk['service']} · "
+                    f"Fuente: {chunk['source_type']}"
+                )
+
+        with st.expander("🔎 Abrir la caja: pipeline RAG"):
+            usage = generated["usage"]
+            metrics = generated["metrics"]
+            st.write(
+                {
+                    "source_documents": len(documents),
+                    "chunks": len(chunks),
+                    "chunk_size_words": 36,
+                    "overlap_words": 8,
+                    "index_shape": list(index["matrix"].shape),
+                    "query_input_tokens_embedding": retrieval["query_tokens"],
+                    "query_embedding_latency_ms": retrieval["query_latency_ms"],
+                    "llm_input_tokens": usage.get("inputTokens"),
+                    "llm_output_tokens": usage.get("outputTokens"),
+                    "llm_total_tokens": usage.get("totalTokens"),
+                    "llm_latency_ms": metrics.get("latencyMs"),
+                    "stop_reason": generated["stop_reason"],
+                    "filters": retrieval["filters"],
+                }
+            )
+            st.markdown("**Contexto exacto enviado al LLM**")
+            st.code(generated["context"], language=None)
+            st.markdown("**System prompt**")
+            st.code(generated["system_prompt"], language=None)
+            st.markdown("**User prompt completo**")
+            st.code(generated["user_prompt"], language=None)
 
 st.divider()
 st.caption(
-    "El score expresa similitud vectorial, no una verdad absoluta ni una probabilidad. "
-    "En M06 usaremos retrieval como una etapa del pipeline RAG y evaluaremos su calidad."
+    "M05 hizo visible el retrieval. M06-P01 añade contexto y generación sin ocultar el pipeline. "
+    "M06-P02 reconstruirá este patrón con LangChain y lo evaluará."
 )
